@@ -207,67 +207,42 @@ body {
   position: relative;
 }
 
-/* Package sections with background images */
+/* Package sections with elegant backgrounds */
 .tab-panel {
   position: relative;
   padding: 3rem 0;
+  background: transparent;
 }
 
-.tab-panel::before {
-  content: '';
-  position: absolute;
-  top: -2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 1200px;
-  height: calc(100% + 4rem);
-  opacity: 0.25;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: -1;
-  border-radius: var(--radius-xl);
-  filter: contrast(1.1) brightness(1.1) saturate(1.1);
-  transition: opacity 0.5s ease-out;
+/* Subtle gradient backgrounds for each category */
+#panel-ecosystems {
+  background: linear-gradient(135deg,
+    rgba(221, 229, 215, 0.15) 0%,
+    rgba(245, 243, 239, 0.1) 100%);
 }
 
-/* Create gradient overlay for better text contrast */
-.tab-panel::after {
-  content: '';
-  position: absolute;
-  top: -2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 1200px;
-  height: calc(100% + 4rem);
-  background: radial-gradient(ellipse at center,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(245, 243, 239, 0.3) 60%,
-    transparent 100%);
-  z-index: -1;
-  pointer-events: none;
+#panel-ecopass {
+  background: linear-gradient(135deg,
+    rgba(53, 82, 74, 0.05) 0%,
+    rgba(245, 243, 239, 0.1) 100%);
 }
 
-#panel-ecosystems::before {
-  background-image: url('assets/images/Ecosystems SR.webp');
+#panel-running {
+  background: linear-gradient(135deg,
+    rgba(166, 123, 91, 0.08) 0%,
+    rgba(245, 243, 239, 0.1) 100%);
 }
 
-#panel-ecopass::before {
-  background-image: url('assets/images/EcoPass SR.webp');
+#panel-ruta {
+  background: linear-gradient(135deg,
+    rgba(221, 229, 215, 0.12) 0%,
+    rgba(245, 243, 239, 0.1) 100%);
 }
 
-#panel-running::before {
-  background-image: url('assets/images/Running Club SR.webp');
-}
-
-#panel-ruta::before {
-  background-image: url('assets/images/Ruta Verde SR.webp');
-}
-
-#panel-sendero::before {
-  background-image: url('assets/images/Sendero y Sabor SR.webp');
+#panel-sendero {
+  background: linear-gradient(135deg,
+    rgba(166, 123, 91, 0.1) 0%,
+    rgba(245, 243, 239, 0.08) 100%);
 }
 
 .packages-grid {
@@ -323,21 +298,20 @@ body {
   opacity: 1;
 }
 
-/* Ensure background images are always loaded */
-.tab-panel::before {
-  will-change: opacity;
+/* Smooth transitions for tab panels */
+.tab-panel {
+  transition: background 0.3s ease-out;
 }
 
 /* Grid is already defined above, removing duplicate */
 
 .package-card {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background-color: var(--blanco);
   border-radius: var(--radius-xl);
   padding: 2.5rem;
-  box-shadow: 0 10px 40px rgba(11, 32, 39, 0.15);
-  border: 2px solid rgba(221, 229, 215, 0.8);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--salvia);
   transition: var(--transition);
   display: flex;
   flex-direction: column;
@@ -346,18 +320,15 @@ body {
 }
 
 .package-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(11, 32, 39, 0.25);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
   border-color: var(--pino);
-  background-color: rgba(255, 255, 255, 1);
 }
 
 .package-card.featured {
   border-color: var(--cacao);
-  background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(245, 243, 239, 0.95) 100%);
-  box-shadow: 0 15px 50px rgba(166, 123, 91, 0.15);
+  background: linear-gradient(135deg, var(--blanco) 0%, var(--arena) 100%);
+  box-shadow: var(--shadow-lg);
 }
 
 .package-badge {

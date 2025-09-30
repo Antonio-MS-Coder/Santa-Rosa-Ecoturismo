@@ -12,23 +12,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Remove active class from all tabs and panels
       tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => {
-        p.classList.remove('active');
-        // Ensure background stays visible
-        p.style.display = 'none';
-      });
+      panels.forEach(p => p.classList.remove('active'));
 
       // Add active class to clicked tab and corresponding panel
       tab.classList.add('active');
       const targetPanel = document.getElementById(`panel-${targetTab}`);
       if (targetPanel) {
         targetPanel.classList.add('active');
-        targetPanel.style.display = 'block';
-
-        // Force browser to maintain background image
-        setTimeout(() => {
-          targetPanel.style.opacity = '1';
-        }, 10);
       }
     });
   });
@@ -216,20 +206,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Parallax Effect for Package Backgrounds
-  const packagePanels = document.querySelectorAll('.tab-panel');
-  if (packagePanels.length > 0) {
-    window.addEventListener('scroll', () => {
-      packagePanels.forEach(panel => {
-        const rect = panel.getBoundingClientRect();
-        const speed = 0.5;
-        const yPos = -(rect.top * speed);
-
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          panel.style.setProperty('--bg-position', `center ${50 + yPos}px`);
+  // Smooth scroll animation for packages section
+  const packageSection = document.querySelector('.packages-section');
+  if (packageSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
       });
-    }, { passive: true });
+    }, { threshold: 0.1 });
+
+    observer.observe(packageSection);
   }
 
   // Calendar Card Hover Effects
