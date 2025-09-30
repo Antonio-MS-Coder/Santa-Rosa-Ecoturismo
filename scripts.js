@@ -12,13 +12,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Remove active class from all tabs and panels
       tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
+      panels.forEach(p => {
+        p.classList.remove('active');
+        // Ensure background stays visible
+        p.style.display = 'none';
+      });
 
       // Add active class to clicked tab and corresponding panel
       tab.classList.add('active');
       const targetPanel = document.getElementById(`panel-${targetTab}`);
       if (targetPanel) {
         targetPanel.classList.add('active');
+        targetPanel.style.display = 'block';
+
+        // Force browser to maintain background image
+        setTimeout(() => {
+          targetPanel.style.opacity = '1';
+        }, 10);
       }
     });
   });
