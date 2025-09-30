@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Add Loading State to Buttons
   document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function(e) {
+    button.addEventListener('click', function() {
       if (this.href && this.href.includes('stripe.com')) {
         this.classList.add('loading');
         this.innerHTML = '<span>Procesando...</span>';
