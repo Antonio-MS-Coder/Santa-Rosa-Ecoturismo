@@ -858,3 +858,349 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Calendar Modal Styles */
+.calendar-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 32, 39, 0.95);
+  z-index: 2000;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.calendar-modal.active {
+  display: block;
+}
+
+.calendar-modal-content {
+  background-color: var(--blanco);
+  margin: 2rem auto;
+  max-width: 1200px;
+  width: 95%;
+  border-radius: var(--radius-xl);
+  animation: slideUp 0.4s ease-out;
+  box-shadow: var(--shadow-xl);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendar-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 2px solid var(--salvia);
+  background: linear-gradient(135deg, var(--arena) 0%, var(--salvia) 100%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.calendar-modal-header h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--bosque);
+  margin: 0;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--bosque);
+  cursor: pointer;
+  transition: var(--transition);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+}
+
+.close-modal:hover {
+  background-color: var(--blanco);
+  transform: rotate(90deg);
+}
+
+.calendar-modal-body {
+  padding: 2rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Calendar Filters */
+.calendar-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--arena);
+  border-radius: var(--radius-lg);
+}
+
+.calendar-filter {
+  padding: 0.5rem 1rem;
+  background-color: var(--blanco);
+  border: 2px solid var(--salvia);
+  border-radius: var(--radius-md);
+  color: var(--bosque);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.calendar-filter:hover {
+  background-color: var(--salvia);
+  border-color: var(--pino);
+}
+
+.calendar-filter.active {
+  background-color: var(--pino);
+  color: var(--blanco);
+  border-color: var(--pino);
+}
+
+/* Calendar Months */
+.calendar-months {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.calendar-month {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.calendar-month-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--bosque);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--salvia);
+}
+
+/* Calendar Events */
+.calendar-events {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calendar-event {
+  display: flex;
+  background-color: var(--arena);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.calendar-event:hover {
+  transform: translateX(8px);
+  border-color: var(--pino);
+  box-shadow: var(--shadow-md);
+}
+
+.calendar-event.hidden {
+  display: none;
+}
+
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background-color: var(--pino);
+  color: var(--blanco);
+  min-width: 80px;
+}
+
+.event-day {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-weekday {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  opacity: 0.9;
+}
+
+.event-details {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-details h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--bosque);
+  margin-bottom: 0.5rem;
+}
+
+.event-details p {
+  font-size: 0.9rem;
+  color: var(--pino);
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+
+.event-time {
+  font-size: 0.875rem;
+  color: var(--cacao);
+  font-weight: 500;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+/* Event Categories */
+.event-category {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.event-category.running {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.event-category.hiking {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.event-category.workshop {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.event-category.special {
+  background-color: #fce4ec;
+  color: #c2185b;
+}
+
+/* Calendar Legend */
+.calendar-legend {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: var(--arena);
+  border-radius: var(--radius-lg);
+}
+
+.calendar-legend p {
+  margin-bottom: 1rem;
+  color: var(--bosque);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--pino);
+}
+
+.legend-item .event-category {
+  margin-right: 0.5rem;
+}
+
+/* Calendar Modal Footer */
+.calendar-modal-footer {
+  padding: 2rem;
+  background-color: var(--salvia);
+  border-top: 2px solid var(--pino);
+  text-align: center;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.calendar-modal-footer p {
+  margin: 0.5rem 0;
+  color: var(--bosque);
+}
+
+.calendar-modal-footer .btn {
+  margin-top: 1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .calendar-modal-content {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .calendar-modal-header {
+    border-radius: 0;
+    padding: 1.5rem 1rem;
+  }
+
+  .calendar-modal-body {
+    padding: 1rem;
+    max-height: calc(100vh - 200px);
+  }
+
+  .calendar-filters {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .calendar-filter {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+  }
+
+  .event-date {
+    min-width: 70px;
+    padding: 1rem;
+  }
+
+  .event-day {
+    font-size: 1.5rem;
+  }
+
+  .event-details {
+    padding: 1rem;
+  }
+
+  .event-details h4 {
+    font-size: 1rem;
+  }
+
+  .legend-item {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .calendar-modal-footer {
+    padding: 1.5rem 1rem;
+  }
+}

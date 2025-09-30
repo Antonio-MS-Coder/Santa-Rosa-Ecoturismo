@@ -363,5 +363,189 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('scroll', debouncedScroll, { passive: true });
 
+  // Calendar Modal Functionality
+  const calendarModal = document.getElementById('calendarModal');
+  const openCalendarBtn = document.getElementById('openCalendarModal');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const calendarFilters = document.querySelectorAll('.calendar-filter');
+  const calendarEvents = document.querySelectorAll('.calendar-event');
+
+  // Open calendar modal
+  if (openCalendarBtn && calendarModal) {
+    openCalendarBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      calendarModal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+
+      // Animate entrance
+      setTimeout(() => {
+        calendarModal.classList.add('active');
+      }, 10);
+    });
+  }
+
+  // Close calendar modal
+  if (closeModalBtn && calendarModal) {
+    closeModalBtn.addEventListener('click', () => {
+      closeCalendarModal();
+    });
+  }
+
+  // Close modal when clicking outside
+  if (calendarModal) {
+    calendarModal.addEventListener('click', (e) => {
+      if (e.target === calendarModal) {
+        closeCalendarModal();
+      }
+    });
+
+    // ESC key to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && calendarModal.style.display === 'block') {
+        closeCalendarModal();
+      }
+    });
+  }
+
+  function closeCalendarModal() {
+    if (calendarModal) {
+      calendarModal.classList.remove('active');
+      setTimeout(() => {
+        calendarModal.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 300);
+    }
+  }
+
+  // Calendar Filter Functionality
+  calendarFilters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      // Update active filter
+      calendarFilters.forEach(f => f.classList.remove('active'));
+      filter.classList.add('active');
+
+      const filterValue = filter.dataset.filter;
+
+      // Show/hide events based on filter
+      calendarEvents.forEach(event => {
+        if (filterValue === 'all') {
+          event.classList.remove('hidden');
+          event.style.display = 'flex';
+        } else {
+          if (event.dataset.category === filterValue) {
+            event.classList.remove('hidden');
+            event.style.display = 'flex';
+          } else {
+            event.classList.add('hidden');
+            event.style.display = 'none';
+          }
+        }
+      });
+
+      // Animate visible events
+      const visibleEvents = document.querySelectorAll('.calendar-event:not(.hidden)');
+      visibleEvents.forEach((event, index) => {
+        event.style.animation = 'none';
+        setTimeout(() => {
+          event.style.animation = `fadeInUp 0.5s ease-out ${index * 0.05}s`;
+        }, 10);
+      });
+    });
+  });
+
+  // Add click event to calendar events for reservation
+  calendarEvents.forEach(event => {
+    event.addEventListener('click', () => {
+      const eventTitle = event.querySelector('h4').textContent;
+      const eventDate = event.querySelector('.event-day').textContent;
+      const eventMonth = event.closest('.calendar-month').querySelector('.calendar-month-title').textContent;
+
+      // Close modal and scroll to reservation form
+      closeCalendarModal();
+
+      setTimeout(() => {
+        // Scroll to reservation form
+        const reservationForm = document.getElementById('reservar');
+        if (reservationForm) {
+          reservationForm.scrollIntoView({ behavior: 'smooth' });
+
+          // Pre-fill form message with event details
+          setTimeout(() => {
+            const messageField = document.getElementById('message');
+            if (messageField) {
+              messageField.value = `Me interesa la actividad: ${eventTitle} - ${eventDate} de ${eventMonth}`;
+            }
+          }, 500);
+        }
+      }, 400);
+    });
+  });
+
+  // Add month navigation (optional enhancement)
+  const addMonthNavigation = () => {
+    const months = document.querySelectorAll('.calendar-month');
+    if (months.length > 0) {
+      const navContainer = document.createElement('div');
+      navContainer.className = 'month-navigation';
+      navContainer.style.cssText = `
+        position: sticky;
+        top: 0;
+        background: var(--blanco);
+        padding: 1rem;
+        border-bottom: 2px solid var(--salvia);
+        margin-bottom: 1rem;
+        z-index: 10;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      `;
+
+      months.forEach(month => {
+        const monthTitle = month.querySelector('.calendar-month-title').textContent;
+        const navBtn = document.createElement('button');
+        navBtn.textContent = monthTitle.split(' ')[0]; // Get just month name
+        navBtn.className = 'month-nav-btn';
+        navBtn.style.cssText = `
+          padding: 0.5rem 1rem;
+          background: var(--arena);
+          border: 1px solid var(--salvia);
+          border-radius: var(--radius-md);
+          cursor: pointer;
+          transition: var(--transition);
+        `;
+
+        navBtn.addEventListener('click', () => {
+          month.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        navBtn.addEventListener('mouseenter', () => {
+          navBtn.style.background = 'var(--salvia)';
+        });
+
+        navBtn.addEventListener('mouseleave', () => {
+          navBtn.style.background = 'var(--arena)';
+        });
+
+        navContainer.appendChild(navBtn);
+      });
+
+      const modalBody = document.querySelector('.calendar-modal-body');
+      if (modalBody) {
+        modalBody.insertBefore(navContainer, modalBody.firstChild);
+      }
+    }
+  };
+
+  // Initialize month navigation when modal opens
+  if (openCalendarBtn) {
+    openCalendarBtn.addEventListener('click', () => {
+      setTimeout(() => {
+        if (!document.querySelector('.month-navigation')) {
+          addMonthNavigation();
+        }
+      }, 100);
+    });
+  }
+
   console.log('🌲 Santa Rosa Ecoturismo - Sitio cargado exitosamente');
 });

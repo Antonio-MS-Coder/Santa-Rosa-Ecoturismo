@@ -378,10 +378,207 @@
         </div>
       </div>
       <div class="calendar-actions">
-        <a href="#" class="btn btn-secondary">Ver calendario completo</a>
+        <button id="openCalendarModal" class="btn btn-secondary">Ver calendario completo</button>
       </div>
     </div>
   </section>
+
+  <!-- Calendar Modal -->
+  <div id="calendarModal" class="calendar-modal">
+    <div class="calendar-modal-content">
+      <div class="calendar-modal-header">
+        <h2 class="serif">Calendario de Actividades 2024</h2>
+        <button class="close-modal" aria-label="Cerrar calendario">&times;</button>
+      </div>
+
+      <div class="calendar-modal-body">
+        <div class="calendar-filters">
+          <button class="calendar-filter active" data-filter="all">Todas</button>
+          <button class="calendar-filter" data-filter="running">Running</button>
+          <button class="calendar-filter" data-filter="hiking">Hiking</button>
+          <button class="calendar-filter" data-filter="workshop">Talleres</button>
+          <button class="calendar-filter" data-filter="special">Especiales</button>
+        </div>
+
+        <div class="calendar-months">
+          <!-- Diciembre 2024 -->
+          <div class="calendar-month">
+            <h3 class="calendar-month-title">Diciembre 2024</h3>
+            <div class="calendar-events">
+              <div class="calendar-event" data-category="running">
+                <div class="event-date">
+                  <span class="event-day">15</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Trail Running 10K - Edición Navideña</h4>
+                  <p>Carrera con chocolate caliente y villancicos</p>
+                  <span class="event-time">🕐 7:00 AM</span>
+                  <span class="event-category running">Running</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="workshop">
+                <div class="event-date">
+                  <span class="event-day">22</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Taller de Artesanías Navideñas</h4>
+                  <p>Crea decoraciones con materiales del bosque</p>
+                  <span class="event-time">🕐 10:00 AM</span>
+                  <span class="event-category workshop">Taller</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="special">
+                <div class="event-date">
+                  <span class="event-day">31</span>
+                  <span class="event-weekday">Lun</span>
+                </div>
+                <div class="event-details">
+                  <h4>Hike Fin de Año</h4>
+                  <p>Despide el año conectando con la naturaleza</p>
+                  <span class="event-time">🕐 8:00 AM</span>
+                  <span class="event-category special">Especial</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enero 2025 -->
+          <div class="calendar-month">
+            <h3 class="calendar-month-title">Enero 2025</h3>
+            <div class="calendar-events">
+              <div class="calendar-event" data-category="special">
+                <div class="event-date">
+                  <span class="event-day">01</span>
+                  <span class="event-weekday">Mar</span>
+                </div>
+                <div class="event-details">
+                  <h4>Amanecer del Nuevo Año</h4>
+                  <p>Hike especial para ver el primer amanecer del año</p>
+                  <span class="event-time">🕐 6:00 AM</span>
+                  <span class="event-category special">Especial</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="hiking">
+                <div class="event-date">
+                  <span class="event-day">05</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Sendero & Sabor - Rosca de Reyes</h4>
+                  <p>Hike + degustación de rosca artesanal</p>
+                  <span class="event-time">🕐 9:00 AM</span>
+                  <span class="event-category hiking">Hiking</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="running">
+                <div class="event-date">
+                  <span class="event-day">12</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Trail Running 5K - Principiantes</h4>
+                  <p>Carrera introductoria para nuevos corredores</p>
+                  <span class="event-time">🕐 7:30 AM</span>
+                  <span class="event-category running">Running</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="workshop">
+                <div class="event-date">
+                  <span class="event-day">19</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Taller de Fotografía Natural</h4>
+                  <p>Aprende a capturar la belleza del bosque</p>
+                  <span class="event-time">🕐 8:00 AM</span>
+                  <span class="event-category workshop">Taller</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="hiking">
+                <div class="event-date">
+                  <span class="event-day">26</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Ruta Verde - Plantas Medicinales</h4>
+                  <p>Conoce las propiedades curativas del bosque</p>
+                  <span class="event-time">🕐 9:00 AM</span>
+                  <span class="event-category hiking">Hiking</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Febrero 2025 -->
+          <div class="calendar-month">
+            <h3 class="calendar-month-title">Febrero 2025</h3>
+            <div class="calendar-events">
+              <div class="calendar-event" data-category="special">
+                <div class="event-date">
+                  <span class="event-day">14</span>
+                  <span class="event-weekday">Jue</span>
+                </div>
+                <div class="event-details">
+                  <h4>Hike Romántico - San Valentín</h4>
+                  <p>Experiencia especial para parejas con cena</p>
+                  <span class="event-time">🕐 4:00 PM</span>
+                  <span class="event-category special">Especial</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="running">
+                <div class="event-date">
+                  <span class="event-day">16</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Trail Running 15K - Desafío</h4>
+                  <p>Para corredores experimentados</p>
+                  <span class="event-time">🕐 6:30 AM</span>
+                  <span class="event-category running">Running</span>
+                </div>
+              </div>
+
+              <div class="calendar-event" data-category="workshop">
+                <div class="event-date">
+                  <span class="event-day">23</span>
+                  <span class="event-weekday">Sáb</span>
+                </div>
+                <div class="event-details">
+                  <h4>Taller de Cocina del Bosque</h4>
+                  <p>Preparación de platillos con ingredientes locales</p>
+                  <span class="event-time">🕐 10:00 AM</span>
+                  <span class="event-category workshop">Taller</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-legend">
+          <p><strong>Leyenda:</strong></p>
+          <span class="legend-item"><span class="event-category running">Running</span> Carreras y trail running</span>
+          <span class="legend-item"><span class="event-category hiking">Hiking</span> Caminatas y senderismo</span>
+          <span class="legend-item"><span class="event-category workshop">Taller</span> Talleres y actividades educativas</span>
+          <span class="legend-item"><span class="event-category special">Especial</span> Eventos especiales y festividades</span>
+        </div>
+      </div>
+
+      <div class="calendar-modal-footer">
+        <p>📍 Todas las actividades incluyen punto de reunión en Santa Fe (opcional)</p>
+        <p>📧 Reserva tu lugar: reservas@santarosa-eco.mx</p>
+        <button class="btn btn-primary" onclick="document.getElementById('calendarModal').style.display='none'; window.location.href='#reservar';">Reservar actividad</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Gallery Section -->
   <section class="gallery-section">
