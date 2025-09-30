@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Add Loading State to Buttons
   document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(e) {
       if (this.href && this.href.includes('stripe.com')) {
         this.classList.add('loading');
         this.innerHTML = '<span>Procesando...</span>';
@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (confirm(message)) {
         // WhatsApp message with product details
-        const whatsappNumber = '525512345678'; // Replace with actual number
+        const whatsappNumber = '525578789795'; // Replace with actual number
         const whatsappMessage = `Hola! Me interesa comprar: ${productName} (${productPrice})`;
         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
