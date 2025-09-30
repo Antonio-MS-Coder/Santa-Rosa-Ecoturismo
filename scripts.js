@@ -206,6 +206,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Parallax Effect for Package Backgrounds
+  const packagePanels = document.querySelectorAll('.tab-panel');
+  if (packagePanels.length > 0) {
+    window.addEventListener('scroll', () => {
+      packagePanels.forEach(panel => {
+        const rect = panel.getBoundingClientRect();
+        const speed = 0.5;
+        const yPos = -(rect.top * speed);
+
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          panel.style.setProperty('--bg-position', `center ${50 + yPos}px`);
+        }
+      });
+    }, { passive: true });
+  }
+
   // Calendar Card Hover Effects
   const calendarCards = document.querySelectorAll('.calendar-card');
   calendarCards.forEach(card => {
