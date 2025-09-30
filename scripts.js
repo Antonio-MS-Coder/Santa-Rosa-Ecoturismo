@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Lazy Loading Images
+  // Lazy Loading Images - Now using real images
   const imageObserverOptions = {
     rootMargin: '50px 0px',
     threshold: 0.01
@@ -113,21 +113,15 @@ document.addEventListener('DOMContentLoaded', function() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const img = entry.target;
-        // For demo purposes, we'll use placeholder images
-        if (!img.src || img.src.includes('placeholder')) {
-          const width = img.offsetWidth || 400;
-          const height = img.offsetHeight || 300;
-          img.src = `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
-        }
+        // Add a fade-in animation when images load
+        img.style.animation = 'fadeIn 0.6s ease-out';
         imageObserver.unobserve(img);
       }
     });
   }, imageObserverOptions);
 
-  document.querySelectorAll('img').forEach(img => {
-    if (!img.complete) {
-      imageObserver.observe(img);
-    }
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    imageObserver.observe(img);
   });
 
   // Mobile Menu Toggle (if needed in future)

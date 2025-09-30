@@ -203,6 +203,51 @@ body {
 .packages-section {
   padding: 5rem 0;
   background-color: var(--blanco);
+  position: relative;
+}
+
+/* Package sections with background images */
+.tab-panel {
+  position: relative;
+}
+
+.tab-panel::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: -2rem;
+  right: -2rem;
+  height: 300px;
+  opacity: 0.08;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  border-radius: var(--radius-xl);
+}
+
+#panel-ecosystems::before {
+  background-image: url('assets/images/Ecosystems SR.webp');
+}
+
+#panel-ecopass::before {
+  background-image: url('assets/images/EcoPass SR.webp');
+}
+
+#panel-running::before {
+  background-image: url('assets/images/Running Club SR.webp');
+}
+
+#panel-ruta::before {
+  background-image: url('assets/images/Ruta Verde SR.webp');
+}
+
+#panel-sendero::before {
+  background-image: url('assets/images/Sendero y Sabor SR.webp');
+}
+
+.packages-grid {
+  position: relative;
+  z-index: 1;
 }
 
 .tabs-container {
