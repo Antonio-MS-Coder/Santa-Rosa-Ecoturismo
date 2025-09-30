@@ -1,0 +1,367 @@
+// Santa Rosa Ecoturismo - Interactive JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Tab Navigation
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetTab = tab.dataset.tab;
+
+      // Remove active class from all tabs and panels
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      // Add active class to clicked tab and corresponding panel
+      tab.classList.add('active');
+      const targetPanel = document.getElementById(`panel-${targetTab}`);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+  // Animated Counter for Impact Numbers
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const animateNumber = (element) => {
+    const target = parseInt(element.dataset.target);
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+
+    const updateNumber = () => {
+      current += step;
+      if (current < target) {
+        element.textContent = Math.floor(current).toLocaleString();
+        requestAnimationFrame(updateNumber);
+      } else {
+        element.textContent = target.toLocaleString() + (element.textContent.includes('%') ? '%' : '+');
+      }
+    };
+
+    updateNumber();
+  };
+
+  const numberObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+        animateNumber(entry.target);
+        entry.target.classList.add('animated');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.impact-number').forEach(number => {
+    numberObserver.observe(number);
+  });
+
+  // Form Submission Handler
+  const reservationForm = document.getElementById('reservationForm');
+  if (reservationForm) {
+    reservationForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get form data
+      const formData = new FormData(reservationForm);
+      const data = Object.fromEntries(formData);
+
+      // Here you would normally send the data to a server
+      // For now, we'll just show a success message
+      alert(`¡Gracias por tu reserva, ${data.name}! Te contactaremos pronto al correo ${data.email} para confirmar tu experiencia "${data.package}".`);
+
+      // Reset form
+      reservationForm.reset();
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Smooth Scroll for Anchor Links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        const offset = 80; // Account for any fixed headers
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Lazy Loading Images
+  const imageObserverOptions = {
+    rootMargin: '50px 0px',
+    threshold: 0.01
+  };
+
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        // For demo purposes, we'll use placeholder images
+        if (!img.src || img.src.includes('placeholder')) {
+          const width = img.offsetWidth || 400;
+          const height = img.offsetHeight || 300;
+          img.src = `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
+        }
+        imageObserver.unobserve(img);
+      }
+    });
+  }, imageObserverOptions);
+
+  document.querySelectorAll('img').forEach(img => {
+    if (!img.complete) {
+      imageObserver.observe(img);
+    }
+  });
+
+  // Mobile Menu Toggle (if needed in future)
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+  }
+
+  // Date Input - Set minimum date to today
+  const dateInput = document.getElementById('date');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+  }
+
+  // Add hover effect to package cards
+  const packageCards = document.querySelectorAll('.package-card');
+  packageCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-8px)';
+    });
+
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+    });
+  });
+
+  // FAQ Smooth Toggle Animation
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    question.addEventListener('click', () => {
+      // Smooth height animation for answer
+      if (!item.hasAttribute('open')) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      } else {
+        answer.style.maxHeight = '0';
+      }
+    });
+  });
+
+  // Scroll Progress Indicator (optional enhancement)
+  const createScrollProgress = () => {
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cacao) 0%, var(--bosque) 100%);
+      z-index: 1000;
+      transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      progressBar.style.width = scrolled + '%';
+    });
+  };
+
+  createScrollProgress();
+
+  // Parallax Effect for Hero Image
+  const heroImage = document.querySelector('.hero-image');
+  if (heroImage) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.3;
+      if (scrolled < 800) {
+        heroImage.style.transform = `translateY(${rate}px)`;
+      }
+    });
+  }
+
+  // Calendar Card Hover Effects
+  const calendarCards = document.querySelectorAll('.calendar-card');
+  calendarCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-6px) scale(1.02)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+
+  // Auto-hide Sticky CTA on Scroll Up (Mobile)
+  let lastScroll = 0;
+  const stickyCTA = document.querySelector('.sticky-cta');
+
+  if (stickyCTA && window.innerWidth < 768) {
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        // Scrolling down
+        stickyCTA.style.transform = 'translateY(100%)';
+      } else {
+        // Scrolling up
+        stickyCTA.style.transform = 'translateY(0)';
+      }
+
+      lastScroll = currentScroll;
+    });
+  }
+
+  // Add Loading State to Buttons
+  document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+      if (this.href && this.href.includes('stripe.com')) {
+        this.classList.add('loading');
+        this.innerHTML = '<span>Procesando...</span>';
+      }
+    });
+  });
+
+  // Accessibility: Announce Tab Changes
+  const announceTabChange = (tabName) => {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
+    announcement.textContent = `Mostrando paquetes de ${tabName}`;
+    document.body.appendChild(announcement);
+
+    setTimeout(() => {
+      document.body.removeChild(announcement);
+    }, 1000);
+  };
+
+  // Enhanced Tab Keyboard Navigation
+  tabs.forEach((tab, index) => {
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
+
+    tab.addEventListener('keydown', (e) => {
+      let newIndex;
+
+      if (e.key === 'ArrowRight') {
+        newIndex = (index + 1) % tabs.length;
+      } else if (e.key === 'ArrowLeft') {
+        newIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (e.key === 'Home') {
+        newIndex = 0;
+      } else if (e.key === 'End') {
+        newIndex = tabs.length - 1;
+      }
+
+      if (newIndex !== undefined) {
+        e.preventDefault();
+        tabs[newIndex].click();
+        tabs[newIndex].focus();
+      }
+    });
+  });
+
+  // Initialize Gallery Lightbox (simple version)
+  const galleryImages = document.querySelectorAll('.gallery-image');
+  galleryImages.forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', function() {
+      const lightbox = document.createElement('div');
+      lightbox.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        cursor: pointer;
+      `;
+
+      const largeImg = document.createElement('img');
+      largeImg.src = this.src;
+      largeImg.style.cssText = `
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 16px;
+      `;
+
+      lightbox.appendChild(largeImg);
+      document.body.appendChild(lightbox);
+      document.body.style.overflow = 'hidden';
+
+      lightbox.addEventListener('click', () => {
+        document.body.removeChild(lightbox);
+        document.body.style.overflow = '';
+      });
+
+      // ESC key to close
+      const closeOnEsc = (e) => {
+        if (e.key === 'Escape') {
+          document.body.removeChild(lightbox);
+          document.body.style.overflow = '';
+          document.removeEventListener('keydown', closeOnEsc);
+        }
+      };
+      document.addEventListener('keydown', closeOnEsc);
+    });
+  });
+
+  // Performance: Debounce scroll events
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // Apply debounce to scroll-based functions
+  const debouncedScroll = debounce(() => {
+    // Add any scroll-based logic here
+  }, 100);
+
+  window.addEventListener('scroll', debouncedScroll, { passive: true });
+
+  console.log('🌲 Santa Rosa Ecoturismo - Sitio cargado exitosamente');
+});

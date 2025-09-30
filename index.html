@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Santa Rosa — Corre, respira y regenera</title>
+  <meta name="description" content="Experiencias con causa en Santa Rosa: trail, cultura y cocina local. Reserva y siembra árboles con cada visita." />
+  <meta property="og:title" content="Santa Rosa — Ecoturismo con causa" />
+  <meta property="og:description" content="Trail running, reforestación, cultura y gastronomía local a 30 min de Santa Fe" />
+  <meta property="og:image" content="assets/images/hero.jpg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1 class="serif hero-title">Corre, respira y regenera.</h1>
+          <p class="hero-subtitle">Experiencias con causa en Santa Rosa: trail, cultura y cocina local. Reserva y siembra árboles con cada visita.</p>
+          <div class="hero-actions">
+            <a href="#paquetes" class="btn btn-primary">Explorar paquetes</a>
+            <a href="#reservar" class="btn btn-secondary">Reservar ahora</a>
+          </div>
+          <div class="hero-badges">
+            <span>🌱 Reforestación real</span>
+            <span class="separator">•</span>
+            <span>🧭 Guías locales</span>
+            <span class="separator">•</span>
+            <span>↺ Reserva flexible</span>
+          </div>
+        </div>
+        <div class="hero-image-wrapper">
+          <img src="assets/images/hero-placeholder.jpg" alt="Vista panorámica del bosque de Santa Rosa" class="hero-image" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Packages Section -->
+  <section id="paquetes" class="packages-section">
+    <div class="container">
+      <h2 class="serif section-title">Paquetes</h2>
+      <p class="section-subtitle">Elige tu experiencia. Todas contribuyen a la reforestación y a la economía local.</p>
+
+      <div class="tabs-container">
+        <div class="tabs-nav">
+          <button class="tab active" data-tab="ecosystems">Ecosystems</button>
+          <button class="tab" data-tab="ecopass">EcoPass</button>
+          <button class="tab" data-tab="running">Running Club</button>
+          <button class="tab" data-tab="ruta">Ruta Verde</button>
+          <button class="tab" data-tab="sendero">Sendero & Sabor</button>
+        </div>
+
+        <div class="tabs-content">
+          <!-- Ecosystems Tab -->
+          <div class="tab-panel active" id="panel-ecosystems">
+            <div class="packages-grid">
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Eco Básico</h3>
+                  <p class="package-price">$1,350 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Hike guiado (2-3 horas)</li>
+                  <li>Snack energético</li>
+                  <li>Adopción de 1 árbol</li>
+                  <li>Certificado digital</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-eco-basico" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+
+              <article class="package-card featured">
+                <span class="package-badge">Más popular</span>
+                <div class="package-header">
+                  <h3 class="serif package-title">Eco Plus</h3>
+                  <p class="package-price">$1,850 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Hike guiado (3-4 horas)</li>
+                  <li>Comida local completa</li>
+                  <li>Adopción de 1 árbol</li>
+                  <li>Sticker/Pin coleccionable</li>
+                  <li>Foto grupal profesional</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-eco-plus" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Eco Impacto</h3>
+                  <p class="package-price">$2,300 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Hike premium (4-5 horas)</li>
+                  <li>Comida gourmet local</li>
+                  <li>Adopción de 3 árboles</li>
+                  <li>Visita guiada al vivero</li>
+                  <li>Kit de souvenirs</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-eco-impacto" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+            </div>
+          </div>
+
+          <!-- EcoPass Tab -->
+          <div class="tab-panel" id="panel-ecopass">
+            <div class="packages-grid">
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Pase Bosque Día</h3>
+                  <p class="package-price">$220 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Acceso al bosque por el día</li>
+                  <li>Mapa digital interactivo</li>
+                  <li>Actividad guiada corta (30 min)</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-pase-dia" class="btn btn-primary btn-block">Comprar pase</a>
+              </article>
+
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Pase Experiencias</h3>
+                  <p class="package-price">$450 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Acceso completo al bosque</li>
+                  <li>2 actividades guiadas</li>
+                  <li>20% descuento en comida</li>
+                  <li>15% descuento en merch</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-pase-experiencias" class="btn btn-primary btn-block">Comprar pase</a>
+              </article>
+
+              <article class="package-card featured">
+                <span class="package-badge">Mejor valor</span>
+                <div class="package-header">
+                  <h3 class="serif package-title">Pase Temporada</h3>
+                  <p class="package-price">$1,200 MXN</p>
+                  <p class="package-duration">90 días</p>
+                </div>
+                <ul class="package-features">
+                  <li>Acceso ilimitado por 90 días</li>
+                  <li>Insignias digitales coleccionables</li>
+                  <li>1 invitado con 50% descuento</li>
+                  <li>Acceso a eventos exclusivos</li>
+                  <li>Newsletter mensual</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-pase-temporada" class="btn btn-primary btn-block">Comprar pase</a>
+              </article>
+            </div>
+          </div>
+
+          <!-- Running Club Tab -->
+          <div class="tab-panel" id="panel-running">
+            <div class="packages-grid">
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Runner Base</h3>
+                  <p class="package-price">$900 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Inscripción carrera 5K o 10K</li>
+                  <li>Número de corredor</li>
+                  <li>Cronometraje oficial</li>
+                  <li>Hidratación en ruta</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-runner-base" class="btn btn-primary btn-block">Inscribirme</a>
+              </article>
+
+              <article class="package-card featured">
+                <span class="package-badge">Incluye kit</span>
+                <div class="package-header">
+                  <h3 class="serif package-title">Runner Kit</h3>
+                  <p class="package-price">$1,250 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Todo lo del paquete Base</li>
+                  <li>Playera técnica del evento</li>
+                  <li>Medalla de finisher</li>
+                  <li>Adopción de 1 árbol</li>
+                  <li>Snack de recuperación</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-runner-kit" class="btn btn-primary btn-block">Inscribirme</a>
+              </article>
+
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Runner Shuttle</h3>
+                  <p class="package-price">$1,650 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Kit completo de corredor</li>
+                  <li>Transporte redondo desde Santa Fe</li>
+                  <li>Desayuno ligero pre-carrera</li>
+                  <li>Comida de recuperación</li>
+                  <li>Foto profesional de finisher</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-runner-shuttle" class="btn btn-primary btn-block">Inscribirme</a>
+              </article>
+            </div>
+          </div>
+
+          <!-- Ruta Verde Tab -->
+          <div class="tab-panel" id="panel-ruta">
+            <div class="packages-grid">
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Ruta Local</h3>
+                  <p class="package-price">$790 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Caminata interpretativa (2 horas)</li>
+                  <li>Guía experto en flora/fauna</li>
+                  <li>Comida en restaurante local</li>
+                  <li>Degustación de productos regionales</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-ruta-local" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+
+              <article class="package-card featured">
+                <span class="package-badge">Incluye taller</span>
+                <div class="package-header">
+                  <h3 class="serif package-title">Ruta Taller</h3>
+                  <p class="package-price">$1,250 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Caminata cultural (2.5 horas)</li>
+                  <li>Taller artesanal (45-60 min)</li>
+                  <li>Comida tradicional completa</li>
+                  <li>Producto artesanal de recuerdo</li>
+                  <li>Certificado de participación</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-ruta-taller" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Ruta Completa + Shuttle</h3>
+                  <p class="package-price">$1,600 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Experiencia Ruta Taller completa</li>
+                  <li>Transporte redondo desde Santa Fe</li>
+                  <li>Guía bilingüe disponible</li>
+                  <li>Seguro de viajero incluido</li>
+                  <li>Playlist de música local</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-ruta-completa" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+            </div>
+          </div>
+
+          <!-- Sendero & Sabor Tab -->
+          <div class="tab-panel" id="panel-sendero">
+            <div class="packages-grid">
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Sendero & Sabor</h3>
+                  <p class="package-price">$850 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Hike moderado (2-3 horas)</li>
+                  <li>Comida local de 3 tiempos</li>
+                  <li>Bebida de cortesía</li>
+                  <li>Guía certificado</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-sendero-base" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+
+              <article class="package-card">
+                <div class="package-header">
+                  <h3 class="serif package-title">Sendero Plus</h3>
+                  <p class="package-price">$1,300 MXN</p>
+                </div>
+                <ul class="package-features">
+                  <li>Hike con paradas fotográficas</li>
+                  <li>Comida gourmet local</li>
+                  <li>Gorra o termo de regalo</li>
+                  <li>Adopción de 1 árbol</li>
+                  <li>Acceso a mirador exclusivo</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-sendero-plus" class="btn btn-primary btn-block">Reservar</a>
+              </article>
+
+              <article class="package-card featured">
+                <span class="package-badge">Grupos pequeños</span>
+                <div class="package-header">
+                  <h3 class="serif package-title">Privado 4-6 personas</h3>
+                  <p class="package-price">$2,200 MXN</p>
+                  <p class="package-duration">por persona</p>
+                </div>
+                <ul class="package-features">
+                  <li>Ruta personalizada a medida</li>
+                  <li>Anfitrión comunitario dedicado</li>
+                  <li>Comida extendida con maridaje</li>
+                  <li>Transporte privado incluido</li>
+                  <li>Sesión de fotos profesional</li>
+                  <li>3 árboles adoptados por persona</li>
+                </ul>
+                <a href="https://buy.stripe.com/placeholder-privado" class="btn btn-primary btn-block">Reservar grupo</a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="disclaimer">*Precios orientativos IVA incluido; pueden variar por temporada y disponibilidad.</p>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="impact-section">
+    <div class="container">
+      <h2 class="serif section-title">Impacto real con cada paso</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-number serif" data-target="1250">0</div>
+          <div class="impact-label">Árboles apadrinados</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-number serif" data-target="50">0</div>
+          <div class="impact-label">Empleos locales</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-number serif" data-target="80">0</div>
+          <div class="impact-label">% Compras a productores</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar Section -->
+  <section id="calendario" class="calendar-section">
+    <div class="container">
+      <h2 class="serif section-title">Próximas fechas</h2>
+      <div class="calendar-grid">
+        <div class="calendar-card">
+          <div class="calendar-date">
+            <span class="calendar-day">15</span>
+            <span class="calendar-month">DIC</span>
+          </div>
+          <div class="calendar-content">
+            <h3>Trail Running 10K</h3>
+            <p>Carrera navideña con chocolate caliente</p>
+            <a href="#reservar" class="btn-link">Inscribirse →</a>
+          </div>
+        </div>
+        <div class="calendar-card">
+          <div class="calendar-date">
+            <span class="calendar-day">22</span>
+            <span class="calendar-month">DIC</span>
+          </div>
+          <div class="calendar-content">
+            <h3>Ruta Verde Especial</h3>
+            <p>Taller de artesanías navideñas locales</p>
+            <a href="#reservar" class="btn-link">Reservar →</a>
+          </div>
+        </div>
+        <div class="calendar-card">
+          <div class="calendar-date">
+            <span class="calendar-day">31</span>
+            <span class="calendar-month">DIC</span>
+          </div>
+          <div class="calendar-content">
+            <h3>Hike Fin de Año</h3>
+            <p>Despide el año conectando con la naturaleza</p>
+            <a href="#reservar" class="btn-link">Unirse →</a>
+          </div>
+        </div>
+      </div>
+      <div class="calendar-actions">
+        <a href="#" class="btn btn-secondary">Ver calendario completo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="container">
+      <h2 class="serif section-title">Vive la experiencia</h2>
+      <div class="gallery-grid">
+        <img src="assets/images/gallery-1.jpg" alt="Corredor en sendero del bosque" class="gallery-image" loading="lazy">
+        <img src="assets/images/gallery-2.jpg" alt="Vista panorámica de Santa Rosa" class="gallery-image" loading="lazy">
+        <img src="assets/images/gallery-3.jpg" alt="Grupo plantando árboles" class="gallery-image" loading="lazy">
+        <img src="assets/images/gallery-4.jpg" alt="Comida local tradicional" class="gallery-image" loading="lazy">
+        <img src="assets/images/gallery-5.jpg" alt="Taller de artesanías" class="gallery-image" loading="lazy">
+        <img src="assets/images/gallery-6.jpg" alt="Amanecer en el bosque" class="gallery-image" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Form Section -->
+  <section id="reservar" class="form-section">
+    <div class="container-small">
+      <h2 class="serif section-title">Reserva tu experiencia</h2>
+      <p class="section-subtitle">Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.</p>
+
+      <form class="reservation-form" id="reservationForm">
+        <div class="form-group">
+          <label for="name">Nombre completo</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="package">Paquete de interés</label>
+          <select id="package" name="package" required>
+            <option value="">Selecciona un paquete</option>
+            <optgroup label="Ecosystems">
+              <option value="eco-basico">Eco Básico - $1,350</option>
+              <option value="eco-plus">Eco Plus - $1,850</option>
+              <option value="eco-impacto">Eco Impacto - $2,300</option>
+            </optgroup>
+            <optgroup label="EcoPass">
+              <option value="pase-dia">Pase Bosque Día - $220</option>
+              <option value="pase-experiencias">Pase Experiencias - $450</option>
+              <option value="pase-temporada">Pase Temporada - $1,200</option>
+            </optgroup>
+            <optgroup label="Running Club">
+              <option value="runner-base">Runner Base - $900</option>
+              <option value="runner-kit">Runner Kit - $1,250</option>
+              <option value="runner-shuttle">Runner Shuttle - $1,650</option>
+            </optgroup>
+            <optgroup label="Ruta Verde">
+              <option value="ruta-local">Ruta Local - $790</option>
+              <option value="ruta-taller">Ruta Taller - $1,250</option>
+              <option value="ruta-completa">Ruta Completa + Shuttle - $1,600</option>
+            </optgroup>
+            <optgroup label="Sendero & Sabor">
+              <option value="sendero">Sendero & Sabor - $850</option>
+              <option value="sendero-plus">Sendero Plus - $1,300</option>
+              <option value="privado">Privado 4-6 personas - $2,200 p/p</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Fecha preferida</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="participants">Número de participantes</label>
+            <input type="number" id="participants" name="participants" min="1" max="20" value="1" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Mensaje o solicitudes especiales (opcional)</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Enviar reserva</button>
+      </form>
+
+      <div class="form-note">
+        <p>También puedes contactarnos directamente:</p>
+        <p>📧 reservas@santarosa-eco.mx | 📱 +52 55 1234 5678</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container-small">
+      <h2 class="serif section-title">Preguntas frecuentes</h2>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">¿Qué nivel físico necesito para las actividades?</summary>
+          <div class="faq-answer">
+            <p>Ofrecemos actividades para todos los niveles. Los senderos están clasificados como:</p>
+            <ul>
+              <li><strong>Básico:</strong> Caminatas de 2-3 horas en terreno plano o con pendientes suaves.</li>
+              <li><strong>Intermedio:</strong> Hikes de 3-4 horas con desniveles moderados.</li>
+              <li><strong>Avanzado:</strong> Rutas de 4+ horas con terreno técnico y mayor desnivel.</li>
+            </ul>
+            <p>Cada paquete especifica el nivel requerido. Si tienes dudas, contáctanos.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">¿Qué incluye el servicio de shuttle desde Santa Fe?</summary>
+          <div class="faq-answer">
+            <p>El shuttle incluye transporte redondo en vehículos cómodos y seguros. Salimos desde un punto céntrico en Santa Fe (se envía ubicación exacta al confirmar). El trayecto dura aproximadamente 30-40 minutos. Incluye seguro de viajero y botella de agua.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">¿Qué pasa si llueve el día de mi reserva?</summary>
+          <div class="faq-answer">
+            <p>La seguridad es nuestra prioridad. En caso de lluvia ligera, las actividades continúan (¡es parte de la experiencia!). Si hay tormenta eléctrica o condiciones peligrosas, te ofrecemos:</p>
+            <ul>
+              <li>Reprogramar sin costo adicional</li>
+              <li>Crédito del 100% para usar en 6 meses</li>
+              <li>Reembolso del 90% si no puedes reprogramar</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">¿Cuál es la política de cancelación?</summary>
+          <div class="faq-answer">
+            <p>Entendemos que los planes pueden cambiar:</p>
+            <ul>
+              <li>Hasta 72 horas antes: Reembolso del 100%</li>
+              <li>Entre 72-24 horas antes: Reembolso del 50%</li>
+              <li>Menos de 24 horas: Sin reembolso, pero puedes transferir tu reserva</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">¿Qué debo llevar a las actividades?</summary>
+          <div class="faq-answer">
+            <p>Recomendamos llevar:</p>
+            <ul>
+              <li>Calzado cómodo para caminar (idealmente botas de hiking)</li>
+              <li>Ropa en capas según el clima</li>
+              <li>Gorra o sombrero y protector solar</li>
+              <li>Mochila pequeña para tus pertenencias</li>
+              <li>Cámara o celular para fotos</li>
+            </ul>
+            <p>Nosotros proporcionamos agua, snacks (según el paquete) y botiquín de primeros auxilios.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">¿Cómo funciona la adopción de árboles?</summary>
+          <div class="faq-answer">
+            <p>Con cada paquete que incluye adopción de árboles:</p>
+            <ul>
+              <li>Recibes un certificado digital con las coordenadas GPS de tu árbol</li>
+              <li>Puedes darle nombre a tu árbol</li>
+              <li>Te enviamos actualizaciones semestrales con fotos del crecimiento</li>
+              <li>Puedes visitarlo cuando quieras con tu pase de acceso</li>
+            </ul>
+            <p>Los árboles son especies nativas y se plantan en zonas de reforestación prioritarias.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">¿Organizan eventos privados o corporativos?</summary>
+          <div class="faq-answer">
+            <p>¡Sí! Ofrecemos experiencias personalizadas para:</p>
+            <ul>
+              <li>Team building empresarial</li>
+              <li>Celebraciones especiales</li>
+              <li>Retiros de bienestar</li>
+              <li>Grupos escolares</li>
+            </ul>
+            <p>Contáctanos para diseñar una experiencia a medida con actividades, catering y logística adaptada a tus necesidades.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="container">
+      <div class="map-grid">
+        <div class="map-content">
+          <h2 class="serif section-title">¿Dónde estamos?</h2>
+          <p>A solo 30-40 minutos de Santa Fe, Santa Rosa es tu escape cercano a la naturaleza.</p>
+
+          <div class="map-info">
+            <h3>Punto de reunión para shuttles:</h3>
+            <p><strong>Plaza Comercial Santa Fe</strong><br>
+            Vasco de Quiroga 3800, Santa Fe<br>
+            (Estacionamiento nivel B2, zona naranja)</p>
+
+            <h3>Horarios de salida:</h3>
+            <ul>
+              <li>Sábados: 7:00 AM y 9:00 AM</li>
+              <li>Domingos: 7:00 AM, 9:00 AM y 11:00 AM</li>
+              <li>Entre semana: Previa reserva de grupos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60206.67557!2d-99.26!3d19.36!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDIxJzM2LjAiTiA5OcKwMTUnMzYuMCJX!5e0!3m2!1ses!2smx!4v1234567890"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 class="serif footer-title">Santa Rosa</h3>
+          <p>Experiencias de ecoturismo con propósito. Cada visita contribuye a la reforestación y al desarrollo de la comunidad local.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="WhatsApp">💬</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Enlaces rápidos</h4>
+          <ul class="footer-links">
+            <li><a href="#paquetes">Paquetes</a></li>
+            <li><a href="#calendario">Calendario</a></li>
+            <li><a href="#reservar">Reservar</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li>📧 info@santarosa-eco.mx</li>
+            <li>📱 +52 55 1234 5678</li>
+            <li>🕐 Lun-Vie: 9:00-18:00</li>
+            <li>🕐 Sáb-Dom: 7:00-15:00</li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Términos y condiciones</a></li>
+            <li><a href="#">Política de privacidad</a></li>
+            <li><a href="#">Deslinde de responsabilidad</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2024 Santa Rosa Ecoturismo. Todos los derechos reservados.</p>
+        <p class="footer-disclaimer">Precios orientativos IVA incluido; pueden variar por temporada y disponibilidad.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA for Mobile -->
+  <div class="sticky-cta">
+    <a href="#reservar" class="btn btn-primary btn-block">Reservar ahora</a>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="scripts.js"></script>
+</body>
+</html>
