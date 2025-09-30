@@ -555,5 +555,71 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Product Cards Interactions
+  const productCards = document.querySelectorAll('.product-card');
+  const productButtons = document.querySelectorAll('.btn-product');
+
+  // Add hover effects to product cards
+  productCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      const image = this.querySelector('.product-image');
+      if (image) {
+        image.style.transform = 'scale(1.1)';
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      const image = this.querySelector('.product-image');
+      if (image) {
+        image.style.transform = 'scale(1)';
+      }
+    });
+  });
+
+  // Handle product purchase clicks
+  productButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Get product details
+      const card = this.closest('.product-card');
+      const productName = card.querySelector('.product-title').textContent;
+      const productPrice = card.querySelector('.product-price').textContent;
+
+      // Show purchase confirmation (temporary alert, can be replaced with modal)
+      const message = `¡Gracias por tu interés en ${productName}!\n\nPrecio: ${productPrice}\n\nSerás redirigido a WhatsApp para completar tu compra.`;
+
+      if (confirm(message)) {
+        // WhatsApp message with product details
+        const whatsappNumber = '525512345678'; // Replace with actual number
+        const whatsappMessage = `Hola! Me interesa comprar: ${productName} (${productPrice})`;
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+        window.open(whatsappURL, '_blank');
+      }
+
+      // Add animation to button
+      this.textContent = '¡Añadido!';
+      this.style.backgroundColor = 'var(--cacao)';
+
+      setTimeout(() => {
+        this.textContent = 'Comprar';
+        this.style.backgroundColor = '';
+      }, 2000);
+    });
+  });
+
+  // Smooth scroll to products section if there's a products link
+  const productsLinks = document.querySelectorAll('a[href="#productos"]');
+  productsLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const productsSection = document.getElementById('productos');
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
   console.log('🌲 Santa Rosa Ecoturismo - Sitio cargado exitosamente');
 });
