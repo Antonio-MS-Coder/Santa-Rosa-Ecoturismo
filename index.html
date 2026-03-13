@@ -3,912 +3,343 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Santa Rosa — Corre, respira y regenera</title>
-  <meta name="description" content="Experiencias con causa en Santa Rosa: trail, cultura y cocina local. Reserva y siembra árboles con cada visita." />
-  <meta property="og:title" content="Santa Rosa — Ecoturismo con causa" />
-  <meta property="og:description" content="Trail running, reforestación, cultura y gastronomía local a 30 min de Santa Fe" />
-  <meta property="og:image" content="assets/images/Hero Banner SR.webp" />
+  <title>Santa Rosa Xochiac — Bosque Comunitario</title>
+  <meta name="description" content="Descubre Santa Rosa Xochiac: bosque comunitario, senderos, cultura y naturaleza a 30 minutos de Santa Fe, Ciudad de México." />
+  <meta property="og:title" content="Santa Rosa Xochiac — Community Forest" />
+  <meta property="og:description" content="Discover a living community forest 30 minutes from Santa Fe, Mexico City. Trails, culture, reforestation." />
+  <meta property="og:image" content="assets/images/Hero.webp" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Hero Section -->
-  <header class="hero-section">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <h1 class="serif hero-title">Corre, respira y regenera.</h1>
-          <p class="hero-subtitle">Experiencias con causa en Santa Rosa: trail, cultura y cocina local. Reserva y siembra árboles con cada visita.</p>
-          <div class="hero-actions">
-            <a href="#paquetes" class="btn btn-primary">Explorar paquetes</a>
-            <a href="#reservar" class="btn btn-secondary">Reservar ahora</a>
-          </div>
-          <div class="hero-badges">
-            <span>🌱 Reforestación real</span>
-            <span class="separator">•</span>
-            <span>🧭 Guías locales</span>
-            <span class="separator">•</span>
-            <span>↺ Reserva flexible</span>
-          </div>
-        </div>
-        <div class="hero-image-wrapper">
-          <img src="assets/images/Hero Banner SR.webp" alt="Vista panorámica del bosque de Santa Rosa" class="hero-image" />
-        </div>
-      </div>
+
+  <!-- Language Toggle -->
+  <button id="langToggle" class="lang-toggle" aria-label="Switch language">
+    <span class="lang-flag">EN</span>
+  </button>
+
+  <!-- Hero Section — Full-width cinematic -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <img src="assets/images/Hero.webp" alt="Bosque de Santa Rosa Xochiac" class="hero-bg" />
+    <div class="hero-inner">
+      <p class="hero-eyebrow" data-es="Bosque comunitario &bull; Álvaro Obregón, CDMX" data-en="Community forest &bull; Álvaro Obregón, Mexico City">Bosque comunitario &bull; Álvaro Obregón, CDMX</p>
+      <h1 class="serif hero-title" data-es="Un bosque vivo a 30 minutos de la ciudad." data-en="A living forest 30 minutes from the city.">Un bosque vivo a 30 minutos de la ciudad.</h1>
+      <p class="hero-subtitle" data-es="Santa Rosa Xochiac — donde la comunidad protege el bosque, y el bosque transforma a quienes lo visitan." data-en="Santa Rosa Xochiac — where the community protects the forest, and the forest transforms those who visit.">Santa Rosa Xochiac — donde la comunidad protege el bosque, y el bosque transforma a quienes lo visitan.</p>
+      <a href="#comunidad" class="btn btn-hero" data-es="Descubrir" data-en="Discover">Descubrir</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span class="scroll-arrow"></span>
     </div>
   </header>
 
-  <!-- Packages Section -->
-  <section id="paquetes" class="packages-section">
+  <!-- La Comunidad / The Community -->
+  <section id="comunidad" class="community-section">
     <div class="container">
-      <h2 class="serif section-title">Paquetes</h2>
-      <p class="section-subtitle">Elige tu experiencia. Todas contribuyen a la reforestación y a la economía local.</p>
-
-      <div class="tabs-container">
-        <div class="tabs-nav">
-          <button class="tab active" data-tab="ecosystems">Ecosystems</button>
-          <button class="tab" data-tab="ecopass">EcoPass</button>
-          <button class="tab" data-tab="running">Running Club</button>
-          <button class="tab" data-tab="ruta">Ruta Verde</button>
-          <button class="tab" data-tab="sendero">Sendero & Sabor</button>
+      <div class="community-grid">
+        <div class="community-image-wrapper">
+          <img src="assets/images/Community portrait.webp" alt="Vista aérea de la comunidad de Santa Rosa Xochiac" class="community-image" loading="lazy" />
         </div>
-
-        <div class="tabs-content">
-          <!-- Ecosystems Tab -->
-          <div class="tab-panel active" id="panel-ecosystems">
-            <div class="packages-grid">
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Eco Básico</h3>
-                  <p class="package-price">$1,350 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Hike guiado (2-3 horas)</li>
-                  <li>Snack energético</li>
-                  <li>Adopción de 1 árbol</li>
-                  <li>Certificado digital</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-eco-basico" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-
-              <article class="package-card featured">
-                <span class="package-badge">Más popular</span>
-                <div class="package-header">
-                  <h3 class="serif package-title">Eco Plus</h3>
-                  <p class="package-price">$1,850 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Hike guiado (3-4 horas)</li>
-                  <li>Comida local completa</li>
-                  <li>Adopción de 1 árbol</li>
-                  <li>Sticker/Pin coleccionable</li>
-                  <li>Foto grupal profesional</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-eco-plus" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Eco Impacto</h3>
-                  <p class="package-price">$2,300 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Hike premium (4-5 horas)</li>
-                  <li>Comida gourmet local</li>
-                  <li>Adopción de 3 árboles</li>
-                  <li>Visita guiada al vivero</li>
-                  <li>Kit de souvenirs</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-eco-impacto" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-            </div>
-          </div>
-
-          <!-- EcoPass Tab -->
-          <div class="tab-panel" id="panel-ecopass">
-            <div class="packages-grid">
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Pase Bosque Día</h3>
-                  <p class="package-price">$220 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Acceso al bosque por el día</li>
-                  <li>Mapa digital interactivo</li>
-                  <li>Actividad guiada corta (30 min)</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-pase-dia" class="btn btn-primary btn-block">Comprar pase</a>
-              </article>
-
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Pase Experiencias</h3>
-                  <p class="package-price">$450 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Acceso completo al bosque</li>
-                  <li>2 actividades guiadas</li>
-                  <li>20% descuento en comida</li>
-                  <li>15% descuento en merch</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-pase-experiencias" class="btn btn-primary btn-block">Comprar pase</a>
-              </article>
-
-              <article class="package-card featured">
-                <span class="package-badge">Mejor valor</span>
-                <div class="package-header">
-                  <h3 class="serif package-title">Pase Temporada</h3>
-                  <p class="package-price">$1,200 MXN</p>
-                  <p class="package-duration">90 días</p>
-                </div>
-                <ul class="package-features">
-                  <li>Acceso ilimitado por 90 días</li>
-                  <li>Insignias digitales coleccionables</li>
-                  <li>1 invitado con 50% descuento</li>
-                  <li>Acceso a eventos exclusivos</li>
-                  <li>Newsletter mensual</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-pase-temporada" class="btn btn-primary btn-block">Comprar pase</a>
-              </article>
-            </div>
-          </div>
-
-          <!-- Running Club Tab -->
-          <div class="tab-panel" id="panel-running">
-            <div class="packages-grid">
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Runner Base</h3>
-                  <p class="package-price">$900 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Inscripción carrera 5K o 10K</li>
-                  <li>Número de corredor</li>
-                  <li>Cronometraje oficial</li>
-                  <li>Hidratación en ruta</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-runner-base" class="btn btn-primary btn-block">Inscribirme</a>
-              </article>
-
-              <article class="package-card featured">
-                <span class="package-badge">Incluye kit</span>
-                <div class="package-header">
-                  <h3 class="serif package-title">Runner Kit</h3>
-                  <p class="package-price">$1,250 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Todo lo del paquete Base</li>
-                  <li>Playera técnica del evento</li>
-                  <li>Medalla de finisher</li>
-                  <li>Adopción de 1 árbol</li>
-                  <li>Snack de recuperación</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-runner-kit" class="btn btn-primary btn-block">Inscribirme</a>
-              </article>
-
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Runner Shuttle</h3>
-                  <p class="package-price">$1,650 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Kit completo de corredor</li>
-                  <li>Transporte redondo desde Santa Fe</li>
-                  <li>Desayuno ligero pre-carrera</li>
-                  <li>Comida de recuperación</li>
-                  <li>Foto profesional de finisher</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-runner-shuttle" class="btn btn-primary btn-block">Inscribirme</a>
-              </article>
-            </div>
-          </div>
-
-          <!-- Ruta Verde Tab -->
-          <div class="tab-panel" id="panel-ruta">
-            <div class="packages-grid">
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Ruta Local</h3>
-                  <p class="package-price">$790 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Caminata interpretativa (2 horas)</li>
-                  <li>Guía experto en flora/fauna</li>
-                  <li>Comida en restaurante local</li>
-                  <li>Degustación de productos regionales</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-ruta-local" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-
-              <article class="package-card featured">
-                <span class="package-badge">Incluye taller</span>
-                <div class="package-header">
-                  <h3 class="serif package-title">Ruta Taller</h3>
-                  <p class="package-price">$1,250 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Caminata cultural (2.5 horas)</li>
-                  <li>Taller artesanal (45-60 min)</li>
-                  <li>Comida tradicional completa</li>
-                  <li>Producto artesanal de recuerdo</li>
-                  <li>Certificado de participación</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-ruta-taller" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Ruta Completa + Shuttle</h3>
-                  <p class="package-price">$1,600 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Experiencia Ruta Taller completa</li>
-                  <li>Transporte redondo desde Santa Fe</li>
-                  <li>Guía bilingüe disponible</li>
-                  <li>Seguro de viajero incluido</li>
-                  <li>Playlist de música local</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-ruta-completa" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-            </div>
-          </div>
-
-          <!-- Sendero & Sabor Tab -->
-          <div class="tab-panel" id="panel-sendero">
-            <div class="packages-grid">
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Sendero & Sabor</h3>
-                  <p class="package-price">$850 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Hike moderado (2-3 horas)</li>
-                  <li>Comida local de 3 tiempos</li>
-                  <li>Bebida de cortesía</li>
-                  <li>Guía certificado</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-sendero-base" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-
-              <article class="package-card">
-                <div class="package-header">
-                  <h3 class="serif package-title">Sendero Plus</h3>
-                  <p class="package-price">$1,300 MXN</p>
-                </div>
-                <ul class="package-features">
-                  <li>Hike con paradas fotográficas</li>
-                  <li>Comida gourmet local</li>
-                  <li>Gorra o termo de regalo</li>
-                  <li>Adopción de 1 árbol</li>
-                  <li>Acceso a mirador exclusivo</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-sendero-plus" class="btn btn-primary btn-block">Reservar</a>
-              </article>
-
-              <article class="package-card featured">
-                <span class="package-badge">Grupos pequeños</span>
-                <div class="package-header">
-                  <h3 class="serif package-title">Privado 4-6 personas</h3>
-                  <p class="package-price">$2,200 MXN</p>
-                  <p class="package-duration">por persona</p>
-                </div>
-                <ul class="package-features">
-                  <li>Ruta personalizada a medida</li>
-                  <li>Anfitrión comunitario dedicado</li>
-                  <li>Comida extendida con maridaje</li>
-                  <li>Transporte privado incluido</li>
-                  <li>Sesión de fotos profesional</li>
-                  <li>3 árboles adoptados por persona</li>
-                </ul>
-                <a href="https://buy.stripe.com/placeholder-privado" class="btn btn-primary btn-block">Reservar grupo</a>
-              </article>
-            </div>
+        <div class="community-text">
+          <p class="section-eyebrow" data-es="La Comunidad" data-en="The Community">La Comunidad</p>
+          <h2 class="serif section-title" data-es="Santa Rosa Xochiac" data-en="Santa Rosa Xochiac">Santa Rosa Xochiac</h2>
+          <p class="community-body" data-es="En la Sierra de las Cruces, al poniente de la Ciudad de México, la comunidad de Santa Rosa Xochiac protege uno de los últimos bosques vivos de la capital. &laquo;Xochiac&raquo; viene del náhuatl — xochitl (flor) — y significa &laquo;lugar donde florecen las flores&raquo;. Como pueblo originario con raíces prehispánicas nahuas, la comunidad ha cuidado estas tierras por generaciones a través de la figura de bienes comunales: propiedad colectiva ancestral protegida por la Constitución mexicana." data-en="In the Sierra de las Cruces mountains, west of Mexico City, the community of Santa Rosa Xochiac protects one of the capital's last living forests. &laquo;Xochiac&raquo; comes from Nahuatl — xochitl (flower) — and means &laquo;place where flowers bloom.&raquo; As a pueblo originario with pre-Hispanic Nahua roots, the community has tended these lands for generations through bienes comunales: ancestral collective ownership protected by Mexico's Constitution.">En la Sierra de las Cruces, al poniente de la Ciudad de México, la comunidad de Santa Rosa Xochiac protege uno de los últimos bosques vivos de la capital. &laquo;Xochiac&raquo; viene del náhuatl — xochitl (flor) — y significa &laquo;lugar donde florecen las flores&raquo;. Como pueblo originario con raíces prehispánicas nahuas, la comunidad ha cuidado estas tierras por generaciones a través de la figura de bienes comunales: propiedad colectiva ancestral protegida por la Constitución mexicana.</p>
+          <p class="community-body" data-es="Más de 2,400 hectáreas de bosque de oyamel, pino y encino se extienden entre los 2,700 y 3,100 metros de altitud — el pulmón verde de una megalópolis de 22 millones de personas. A solo 30 minutos de Santa Fe, las familias que habitan estas montañas trabajan juntas para reforestar, conservar y compartir su cultura, gastronomía y tradiciones con quienes buscan algo auténtico." data-en="Over 2,400 hectares of sacred fir, pine, and oak forest stretch between 2,700 and 3,100 meters of altitude — the green lung of a 22-million-person megalopolis. Just 30 minutes from Santa Fe, the families who inhabit these mountains work together to reforest, conserve, and share their culture, gastronomy, and traditions with those seeking something authentic.">Más de 2,400 hectáreas de bosque de oyamel, pino y encino se extienden entre los 2,700 y 3,100 metros de altitud — el pulmón verde de una megalópolis de 22 millones de personas. A solo 30 minutos de Santa Fe, las familias que habitan estas montañas trabajan juntas para reforestar, conservar y compartir su cultura, gastronomía y tradiciones con quienes buscan algo auténtico.</p>
+          <div class="community-badges">
+            <span class="badge" data-es="Pueblo Originario" data-en="Indigenous Community">Pueblo Originario</span>
+            <span class="badge" data-es="Bienes Comunales" data-en="Communal Lands">Bienes Comunales</span>
+            <span class="badge" data-es="2,400+ hectáreas" data-en="2,400+ hectares">2,400+ hectáreas</span>
+            <span class="badge" data-es="Suelo de Conservación" data-en="Conservation Land">Suelo de Conservación</span>
+            <span class="badge" data-es="Sierra de las Cruces" data-en="Sierra de las Cruces">Sierra de las Cruces</span>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <p class="disclaimer">*Precios orientativos IVA incluido; pueden variar por temporada y disponibilidad.</p>
+  <!-- Full-width forest divider -->
+  <div class="forest-divider">
+    <img src="assets/images/Forest trail.webp" alt="Sendero en el bosque de oyamel" loading="lazy" />
+    <div class="divider-overlay"></div>
+    <p class="divider-quote serif" data-es="&laquo;El bosque no es nuestro — nosotros somos del bosque.&raquo;" data-en="&laquo;The forest is not ours — we belong to the forest.&raquo;">&laquo;El bosque no es nuestro — nosotros somos del bosque.&raquo;</p>
+  </div>
+
+  <!-- Qué Encontrarás / What You'll Find -->
+  <section id="experiencias" class="experiences-section">
+    <div class="container">
+      <p class="section-eyebrow text-center" data-es="Qué Encontrarás" data-en="What You'll Find">Qué Encontrarás</p>
+      <h2 class="serif section-title text-center" data-es="Experiencias en el bosque" data-en="Forest experiences">Experiencias en el bosque</h2>
+      <p class="section-subtitle text-center" data-es="Actividades guiadas por la comunidad local, diseñadas para conectar con la naturaleza y la cultura de Santa Rosa." data-en="Activities guided by the local community, designed to connect you with the nature and culture of Santa Rosa.">Actividades guiadas por la comunidad local, diseñadas para conectar con la naturaleza y la cultura de Santa Rosa.</p>
+
+      <div class="experiences-grid">
+        <article class="experience-card">
+          <div class="experience-image-wrapper">
+            <img src="assets/images/Trail Running.webp" alt="Trail Running" class="experience-image" loading="lazy" />
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title" data-es="Trail Running" data-en="Trail Running">Trail Running</h3>
+            <p class="experience-desc" data-es="Corre entre pinos y encinos en senderos de montaña con desniveles que retan al cuerpo y alimentan el alma. Rutas de 5K a 15K para todos los niveles." data-en="Run among pines and oaks on mountain trails with elevation changes that challenge the body and feed the soul. Routes from 5K to 15K for all levels.">Corre entre pinos y encinos en senderos de montaña con desniveles que retan al cuerpo y alimentan el alma. Rutas de 5K a 15K para todos los niveles.</p>
+          </div>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-image-wrapper">
+            <img src="assets/images/Senderismo.webp" alt="Senderismo" class="experience-image" loading="lazy" />
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title" data-es="Senderismo" data-en="Hiking">Senderismo</h3>
+            <p class="experience-desc" data-es="Camina por senderos interpretativos con guías locales que conocen cada planta, cada ave y cada historia del bosque. Desde caminatas suaves hasta rutas de alta montaña." data-en="Walk interpretive trails with local guides who know every plant, every bird, and every story of the forest. From gentle walks to high-mountain routes.">Camina por senderos interpretativos con guías locales que conocen cada planta, cada ave y cada historia del bosque. Desde caminatas suaves hasta rutas de alta montaña.</p>
+          </div>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-image-wrapper">
+            <img src="assets/images/Ruta Verde SR.webp" alt="Rutas Culturales" class="experience-image" loading="lazy" />
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title" data-es="Rutas Culturales" data-en="Cultural Routes">Rutas Culturales</h3>
+            <p class="experience-desc" data-es="Recorre las rutas ARCAC que conectan a la comunidad con su historia. Desde Calaveras hasta Cruz de Coloxtitla, cada paraje tiene nombre y significado. Parte del programa de Áreas de Recursos Comunitarios para la Conservación de la CDMX." data-en="Walk the ARCAC routes that connect the community to its history. From Calaveras to Cruz de Coloxtitla, every landmark has a name and a meaning. Part of Mexico City's Community Resource Areas for Conservation program.">Recorre las rutas ARCAC que conectan a la comunidad con su historia. Desde Calaveras hasta Cruz de Coloxtitla, cada paraje tiene nombre y significado. Parte del programa de Áreas de Recursos Comunitarios para la Conservación de la CDMX.</p>
+          </div>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-image-wrapper">
+            <img src="assets/images/Comida Tradicional SR.webp" alt="Gastronomía Local" class="experience-image" loading="lazy" />
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title" data-es="Gastronomía Local" data-en="Local Gastronomy">Gastronomía Local</h3>
+            <p class="experience-desc" data-es="Prueba la cocina serrana preparada con ingredientes del bosque: hongos silvestres, quelites, tlacoyos, barbacoa y mermeladas de tejocote y capulín. Cada platillo es una tradición viva de la comunidad." data-en="Taste highland cuisine prepared with forest ingredients: wild mushrooms, foraged greens, tlacoyos, barbacoa, and preserves made from tejocote and capulín berries. Every dish is a living tradition of the community.">Prueba la cocina serrana preparada con ingredientes del bosque: hongos silvestres, quelites, tlacoyos, barbacoa y mermeladas de tejocote y capulín. Cada platillo es una tradición viva de la comunidad.</p>
+          </div>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-image-wrapper">
+            <img src="assets/images/Plantando Arboles.webp" alt="Reforestación" class="experience-image" loading="lazy" />
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title" data-es="Reforestación" data-en="Reforestation">Reforestación</h3>
+            <p class="experience-desc" data-es="Visita el vivero comunitario y participa en jornadas de plantación. Oyameles, pinos y encinos nativos se propagan aquí para restaurar el bosque. Adopta un árbol y recibe su ubicación GPS." data-en="Visit the community nursery and join planting sessions. Native sacred fir, pine, and oak trees are propagated here to restore the forest. Adopt a tree and receive its GPS coordinates.">Visita el vivero comunitario y participa en jornadas de plantación. Oyameles, pinos y encinos nativos se propagan aquí para restaurar el bosque. Adopta un árbol y recibe su ubicación GPS.</p>
+          </div>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-image-wrapper">
+            <img src="assets/images/Artesanías.webp" alt="Talleres Artesanales" class="experience-image" loading="lazy" />
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title" data-es="Talleres Artesanales" data-en="Artisan Workshops">Talleres Artesanales</h3>
+            <p class="experience-desc" data-es="Aprende técnicas artesanales de manos de los creadores locales. Tallado en madera, velas aromáticas con ingredientes del bosque y más — llévate algo hecho por ti." data-en="Learn artisan techniques from local creators. Wood carving, aromatic candles with forest ingredients, and more — take home something you made yourself.">Aprende técnicas artesanales de manos de los creadores locales. Tallado en madera, velas aromáticas con ingredientes del bosque y más — llévate algo hecho por ti.</p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- Impact Section -->
   <section class="impact-section">
     <div class="container">
-      <h2 class="serif section-title">Impacto real con cada paso</h2>
+      <p class="section-eyebrow text-center" data-es="Impacto Real" data-en="Real Impact" style="color: var(--blanco); opacity: 0.8;">Impacto Real</p>
+      <h2 class="serif section-title text-center" data-es="Cada visita transforma" data-en="Every visit transforms" style="color: var(--blanco);">Cada visita transforma</h2>
       <div class="impact-grid">
         <div class="impact-card">
           <div class="impact-number serif" data-target="1250">0</div>
-          <div class="impact-label">Árboles apadrinados</div>
+          <div class="impact-label" data-es="Árboles apadrinados" data-en="Trees sponsored">Árboles apadrinados</div>
         </div>
         <div class="impact-card">
           <div class="impact-number serif" data-target="50">0</div>
-          <div class="impact-label">Empleos locales</div>
+          <div class="impact-label" data-es="Empleos locales" data-en="Local jobs">Empleos locales</div>
         </div>
         <div class="impact-card">
           <div class="impact-number serif" data-target="80">0</div>
-          <div class="impact-label">% Compras a productores</div>
+          <div class="impact-label" data-es="% Compras a productores" data-en="% Purchased from local producers">% Compras a productores</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Calendar Section -->
-  <section id="calendario" class="calendar-section">
-    <div class="container">
-      <h2 class="serif section-title">Próximas fechas</h2>
-      <div class="calendar-grid">
-        <div class="calendar-card">
-          <div class="calendar-date">
-            <span class="calendar-day">15</span>
-            <span class="calendar-month">DIC</span>
-          </div>
-          <div class="calendar-content">
-            <h3>Trail Running 10K</h3>
-            <p>Carrera navideña con chocolate caliente</p>
-            <a href="#reservar" class="btn-link">Inscribirse →</a>
-          </div>
-        </div>
-        <div class="calendar-card">
-          <div class="calendar-date">
-            <span class="calendar-day">22</span>
-            <span class="calendar-month">DIC</span>
-          </div>
-          <div class="calendar-content">
-            <h3>Ruta Verde Especial</h3>
-            <p>Taller de artesanías navideñas locales</p>
-            <a href="#reservar" class="btn-link">Reservar →</a>
-          </div>
-        </div>
-        <div class="calendar-card">
-          <div class="calendar-date">
-            <span class="calendar-day">31</span>
-            <span class="calendar-month">DIC</span>
-          </div>
-          <div class="calendar-content">
-            <h3>Hike Fin de Año</h3>
-            <p>Despide el año conectando con la naturaleza</p>
-            <a href="#reservar" class="btn-link">Unirse →</a>
-          </div>
-        </div>
-      </div>
-      <div class="calendar-actions">
-        <button id="openCalendarModal" class="btn btn-secondary">Ver calendario completo</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Calendar Modal -->
-  <div id="calendarModal" class="calendar-modal">
-    <div class="calendar-modal-content">
-      <div class="calendar-modal-header">
-        <h2 class="serif">Calendario de Actividades 2024</h2>
-        <button class="close-modal" aria-label="Cerrar calendario">&times;</button>
-      </div>
-
-      <div class="calendar-modal-body">
-        <div class="calendar-filters">
-          <button class="calendar-filter active" data-filter="all">Todas</button>
-          <button class="calendar-filter" data-filter="running">Running</button>
-          <button class="calendar-filter" data-filter="hiking">Hiking</button>
-          <button class="calendar-filter" data-filter="workshop">Talleres</button>
-          <button class="calendar-filter" data-filter="special">Especiales</button>
-        </div>
-
-        <div class="calendar-months">
-          <!-- Diciembre 2024 -->
-          <div class="calendar-month">
-            <h3 class="calendar-month-title">Diciembre 2024</h3>
-            <div class="calendar-events">
-              <div class="calendar-event" data-category="running">
-                <div class="event-date">
-                  <span class="event-day">15</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Trail Running 10K - Edición Navideña</h4>
-                  <p>Carrera con chocolate caliente y villancicos</p>
-                  <span class="event-time">🕐 7:00 AM</span>
-                  <span class="event-category running">Running</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="workshop">
-                <div class="event-date">
-                  <span class="event-day">22</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Taller de Artesanías Navideñas</h4>
-                  <p>Crea decoraciones con materiales del bosque</p>
-                  <span class="event-time">🕐 10:00 AM</span>
-                  <span class="event-category workshop">Taller</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="special">
-                <div class="event-date">
-                  <span class="event-day">31</span>
-                  <span class="event-weekday">Lun</span>
-                </div>
-                <div class="event-details">
-                  <h4>Hike Fin de Año</h4>
-                  <p>Despide el año conectando con la naturaleza</p>
-                  <span class="event-time">🕐 8:00 AM</span>
-                  <span class="event-category special">Especial</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Enero 2025 -->
-          <div class="calendar-month">
-            <h3 class="calendar-month-title">Enero 2025</h3>
-            <div class="calendar-events">
-              <div class="calendar-event" data-category="special">
-                <div class="event-date">
-                  <span class="event-day">01</span>
-                  <span class="event-weekday">Mar</span>
-                </div>
-                <div class="event-details">
-                  <h4>Amanecer del Nuevo Año</h4>
-                  <p>Hike especial para ver el primer amanecer del año</p>
-                  <span class="event-time">🕐 6:00 AM</span>
-                  <span class="event-category special">Especial</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="hiking">
-                <div class="event-date">
-                  <span class="event-day">05</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Sendero & Sabor - Rosca de Reyes</h4>
-                  <p>Hike + degustación de rosca artesanal</p>
-                  <span class="event-time">🕐 9:00 AM</span>
-                  <span class="event-category hiking">Hiking</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="running">
-                <div class="event-date">
-                  <span class="event-day">12</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Trail Running 5K - Principiantes</h4>
-                  <p>Carrera introductoria para nuevos corredores</p>
-                  <span class="event-time">🕐 7:30 AM</span>
-                  <span class="event-category running">Running</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="workshop">
-                <div class="event-date">
-                  <span class="event-day">19</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Taller de Fotografía Natural</h4>
-                  <p>Aprende a capturar la belleza del bosque</p>
-                  <span class="event-time">🕐 8:00 AM</span>
-                  <span class="event-category workshop">Taller</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="hiking">
-                <div class="event-date">
-                  <span class="event-day">26</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Ruta Verde - Plantas Medicinales</h4>
-                  <p>Conoce las propiedades curativas del bosque</p>
-                  <span class="event-time">🕐 9:00 AM</span>
-                  <span class="event-category hiking">Hiking</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Febrero 2025 -->
-          <div class="calendar-month">
-            <h3 class="calendar-month-title">Febrero 2025</h3>
-            <div class="calendar-events">
-              <div class="calendar-event" data-category="special">
-                <div class="event-date">
-                  <span class="event-day">14</span>
-                  <span class="event-weekday">Jue</span>
-                </div>
-                <div class="event-details">
-                  <h4>Hike Romántico - San Valentín</h4>
-                  <p>Experiencia especial para parejas con cena</p>
-                  <span class="event-time">🕐 4:00 PM</span>
-                  <span class="event-category special">Especial</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="running">
-                <div class="event-date">
-                  <span class="event-day">16</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Trail Running 15K - Desafío</h4>
-                  <p>Para corredores experimentados</p>
-                  <span class="event-time">🕐 6:30 AM</span>
-                  <span class="event-category running">Running</span>
-                </div>
-              </div>
-
-              <div class="calendar-event" data-category="workshop">
-                <div class="event-date">
-                  <span class="event-day">23</span>
-                  <span class="event-weekday">Sáb</span>
-                </div>
-                <div class="event-details">
-                  <h4>Taller de Cocina del Bosque</h4>
-                  <p>Preparación de platillos con ingredientes locales</p>
-                  <span class="event-time">🕐 10:00 AM</span>
-                  <span class="event-category workshop">Taller</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="calendar-legend">
-          <p><strong>Leyenda:</strong></p>
-          <span class="legend-item"><span class="event-category running">Running</span> Carreras y trail running</span>
-          <span class="legend-item"><span class="event-category hiking">Hiking</span> Caminatas y senderismo</span>
-          <span class="legend-item"><span class="event-category workshop">Taller</span> Talleres y actividades educativas</span>
-          <span class="legend-item"><span class="event-category special">Especial</span> Eventos especiales y festividades</span>
-        </div>
-      </div>
-
-      <div class="calendar-modal-footer">
-        <p>📍 Todas las actividades incluyen punto de reunión en Santa Fe (opcional)</p>
-        <p>📧 Reserva tu lugar: reservas@santarosa-eco.mx</p>
-        <button class="btn btn-primary" onclick="document.getElementById('calendarModal').style.display='none'; window.location.href='#reservar';">Reservar actividad</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Gallery Section -->
+  <!-- Gallery — Immersive -->
   <section class="gallery-section">
     <div class="container">
-      <h2 class="serif section-title">Vive la experiencia</h2>
-      <div class="gallery-grid">
-        <img src="assets/images/Corredor Bosque SR.webp" alt="Corredor en sendero del bosque" class="gallery-image" loading="lazy">
-        <img src="assets/images/Panoramica SR.webp" alt="Vista panorámica de Santa Rosa" class="gallery-image" loading="lazy">
-        <img src="assets/images/Plantando Arboles SR.webp" alt="Grupo plantando árboles" class="gallery-image" loading="lazy">
-        <img src="assets/images/Comida Tradicional SR.webp" alt="Comida local tradicional" class="gallery-image" loading="lazy">
-        <img src="assets/images/Artesanías SR.webp" alt="Taller de artesanías" class="gallery-image" loading="lazy">
-        <img src="assets/images/Amanecer SR.webp" alt="Amanecer en el bosque" class="gallery-image" loading="lazy">
+      <p class="section-eyebrow text-center" data-es="Galería" data-en="Gallery">Galería</p>
+      <h2 class="serif section-title text-center" data-es="El bosque en imágenes" data-en="The forest in images">El bosque en imágenes</h2>
+    </div>
+    <div class="gallery-full">
+      <div class="gallery-masonry">
+        <div class="gallery-item gallery-tall">
+          <img src="assets/images/Amanecer.webp" alt="Dosel de oyameles hacia el cielo" class="gallery-image" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/Forest trail.webp" alt="Sendero en el bosque" class="gallery-image" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/World Cup context.webp" alt="Ciudad y bosque" class="gallery-image" loading="lazy">
+        </div>
+        <div class="gallery-item gallery-tall">
+          <img src="assets/images/Foggy trail.webp" alt="Sendero entre la niebla" class="gallery-image" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/Plantando Arboles.webp" alt="Manos plantando un pino" class="gallery-image" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/Comida Tradicional SR.webp" alt="Gastronomía de montaña" class="gallery-image" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/Artesanías.webp" alt="Artesanías y textiles locales" class="gallery-image" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Products Section -->
-  <section id="productos" class="products-section">
+  <!-- Interactive Routes Map -->
+  <section id="rutas-mapa" class="map-section">
     <div class="container">
-      <h2 class="serif section-title">Tienda Santa Rosa</h2>
-      <p class="section-subtitle">Llévate un pedacito del bosque. Productos artesanales y sostenibles hechos por la comunidad local.</p>
+      <p class="section-eyebrow text-center" data-es="Explora" data-en="Explore">Explora</p>
+      <h2 class="serif section-title text-center" data-es="Rutas del bosque" data-en="Forest routes">Rutas del bosque</h2>
+      <p class="section-subtitle text-center" data-es="Senderos y brechas de la Comunidad de Santa Rosa Xochiac. Activa o desactiva cada ruta para explorar los recorridos." data-en="Trails and paths of the Santa Rosa Xochiac Community. Toggle each route on or off to explore the paths.">Senderos y brechas de la Comunidad de Santa Rosa Xochiac. Activa o desactiva cada ruta para explorar los recorridos.</p>
 
-      <div class="products-grid">
-        <!-- Guardián del Bosque -->
-        <article class="product-card">
-          <div class="product-image-wrapper">
-            <img src="assets/images/Guardian del Bosque SR.webp" alt="Guardián del Bosque" class="product-image" loading="lazy">
-            <span class="product-badge">Artesanal</span>
+      <div class="routes-map-container">
+        <div id="routesMap" class="routes-map"></div>
+        <div class="routes-controls" id="routesControls">
+          <button class="controls-toggle-btn" id="controlsToggleBtn" aria-label="Toggle route controls">
+            <span data-es="Capas del mapa" data-en="Map layers">Capas del mapa</span>
+            <span class="toggle-icon">&#9650;</span>
+          </button>
+          <div class="controls-body">
+          <div class="group-header">
+            <h3 data-es="Rutas ARCAC" data-en="ARCAC Routes">Rutas ARCAC</h3>
+            <button class="group-toggle-btn" id="group-arcac" data-es="Todo" data-en="All">Todo</button>
           </div>
-          <div class="product-content">
-            <h3 class="product-title">Guardián del Bosque</h3>
-            <p class="product-description">Figura tallada a mano en madera de pino recuperada. Cada pieza es única.</p>
-            <div class="product-footer">
-              <span class="product-price">$450 MXN</span>
-              <button class="btn-product">Comprar</button>
-            </div>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-ruta1" checked>
+              <span class="route-color" style="background:#e6194b"></span>
+              <span class="route-label">Ruta 1</span>
+              <span class="route-desc" data-es="Calaveras &rarr; Vivero &rarr; Cruz de Coloxtitla" data-en="Calaveras &rarr; Vivero &rarr; Cruz de Coloxtitla">Calaveras &rarr; Vivero &rarr; Cruz de Coloxtitla</span>
+            </label>
           </div>
-        </article>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-ruta2" checked>
+              <span class="route-color" style="background:#3cb44b"></span>
+              <span class="route-label">Ruta 2</span>
+              <span class="route-desc" data-es="Calaveras &rarr; Texcaltitla &rarr; Cajetes" data-en="Calaveras &rarr; Texcaltitla &rarr; Cajetes">Calaveras &rarr; Texcaltitla &rarr; Cajetes</span>
+            </label>
+          </div>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-ruta3" checked>
+              <span class="route-color" style="background:#ffe119"></span>
+              <span class="route-label">Ruta 3</span>
+              <span class="route-desc" data-es="Calaveras &rarr; Portillo Viejo &rarr; San Juan Copa" data-en="Calaveras &rarr; Portillo Viejo &rarr; San Juan Copa">Calaveras &rarr; Portillo Viejo &rarr; San Juan Copa</span>
+            </label>
+          </div>
+          <div class="route-legend">
+            <p><strong data-es="Segmentos:" data-en="Segments:">Segmentos:</strong></p>
+            <span class="legend-seg"><span class="seg-line seg-solid"></span> IDA</span>
+            <span class="legend-seg"><span class="seg-line seg-dashed"></span> CIAF</span>
+            <span class="legend-seg"><span class="seg-line seg-dotted"></span> <span data-es="REGRESO" data-en="RETURN">REGRESO</span></span>
+          </div>
 
-        <!-- Hoodies -->
-        <article class="product-card">
-          <div class="product-image-wrapper">
-            <img src="assets/images/Hoddies SR.webp" alt="Hoodie Santa Rosa" class="product-image" loading="lazy">
-            <span class="product-badge">Nuevo</span>
+          <div class="group-header senderos-heading">
+            <h3 data-es="Senderos y Brechas" data-en="Trails &amp; Paths">Senderos y Brechas</h3>
+            <button class="group-toggle-btn" id="group-senderos" data-es="Todo" data-en="All">Todo</button>
           </div>
-          <div class="product-content">
-            <h3 class="product-title">Hoodie Santa Rosa</h3>
-            <p class="product-description">Sudadera de algodón orgánico con diseños inspirados en el bosque.</p>
-            <div class="product-footer">
-              <span class="product-price">$850 MXN</span>
-              <button class="btn-product">Comprar</button>
-            </div>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-r1" checked>
+              <span class="route-color" style="background:#f58231"></span>
+              <span class="route-label">R1</span>
+              <span class="route-desc" data-es="Temaxcaltitla &rarr; Cruz de Coloxtitla" data-en="Temaxcaltitla &rarr; Cruz de Coloxtitla">Temaxcaltitla &rarr; Cruz de Coloxtitla</span>
+            </label>
           </div>
-        </article>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-r2" checked>
+              <span class="route-color" style="background:#911eb4"></span>
+              <span class="route-label">R2</span>
+              <span class="route-desc" data-es="Texcaltitla &rarr; Cajetes" data-en="Texcaltitla &rarr; Cajetes">Texcaltitla &rarr; Cajetes</span>
+            </label>
+          </div>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-r3" checked>
+              <span class="route-color" style="background:#42d4f4"></span>
+              <span class="route-label">R3</span>
+              <span class="route-desc" data-es="Alcatraces &rarr; El Charco" data-en="Alcatraces &rarr; El Charco">Alcatraces &rarr; El Charco</span>
+            </label>
+          </div>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-r4" checked>
+              <span class="route-color" style="background:#f032e6"></span>
+              <span class="route-label">R4</span>
+              <span class="route-desc" data-es="Alcatraces &rarr; Cruz de Coloxtitla" data-en="Alcatraces &rarr; Cruz de Coloxtitla">Alcatraces &rarr; Cruz de Coloxtitla</span>
+            </label>
+          </div>
 
-        <!-- Mermeladas -->
-        <article class="product-card">
-          <div class="product-image-wrapper">
-            <img src="assets/images/Mermeladas SR.webp" alt="Mermeladas Artesanales" class="product-image" loading="lazy">
-            <span class="product-badge">Orgánico</span>
+          <h3 class="senderos-heading" data-es="Casetas de Vigilancia" data-en="Checkpoints">Casetas de Vigilancia</h3>
+          <div class="route-toggle">
+            <label class="route-checkbox">
+              <input type="checkbox" id="toggle-casetas" checked>
+              <span class="route-color route-color-marker">&#9679;</span>
+              <span class="route-label" data-es="Casetas" data-en="Checkpoints">Casetas</span>
+              <span class="route-desc" data-es="Calaveras &bull; Cacaloac" data-en="Calaveras &bull; Cacaloac">Calaveras &bull; Cacaloac</span>
+            </label>
           </div>
-          <div class="product-content">
-            <h3 class="product-title">Mermeladas del Bosque</h3>
-            <p class="product-description">Mermeladas caseras con frutos silvestres recolectados localmente.</p>
-            <div class="product-footer">
-              <span class="product-price">$180 MXN</span>
-              <button class="btn-product">Comprar</button>
-            </div>
-          </div>
-        </article>
 
-        <!-- Termos -->
-        <article class="product-card">
-          <div class="product-image-wrapper">
-            <img src="assets/images/Termos SR.webp" alt="Termo Ecológico" class="product-image" loading="lazy">
-            <span class="product-badge">Eco</span>
+          <p class="route-meta" data-es="Comunidad de Santa Rosa Xochiac&lt;br&gt;Alcaldía Álvaro Obregón, CDMX&lt;br&gt;Senderos y brechas comunitarias" data-en="Santa Rosa Xochiac Community&lt;br&gt;Álvaro Obregón, Mexico City&lt;br&gt;Community trails and paths">Comunidad de Santa Rosa Xochiac<br>Alcaldía Álvaro Obregón, CDMX<br>Senderos y brechas comunitarias</p>
           </div>
-          <div class="product-content">
-            <h3 class="product-title">Termo Aventurero</h3>
-            <p class="product-description">Termo de acero inoxidable con grabado láser del logo Santa Rosa.</p>
-            <div class="product-footer">
-              <span class="product-price">$320 MXN</span>
-              <button class="btn-product">Comprar</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tote Bag -->
-        <article class="product-card">
-          <div class="product-image-wrapper">
-            <img src="assets/images/Tote Bag SR.webp" alt="Tote Bag Santa Rosa" class="product-image" loading="lazy">
-            <span class="product-badge">Popular</span>
-          </div>
-          <div class="product-content">
-            <h3 class="product-title">Tote Bag Trail</h3>
-            <p class="product-description">Bolsa de tela 100% algodón con diseños exclusivos de Santa Rosa.</p>
-            <div class="product-footer">
-              <span class="product-price">$250 MXN</span>
-              <button class="btn-product">Comprar</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Velas Aromáticas -->
-        <article class="product-card">
-          <div class="product-image-wrapper">
-            <img src="assets/images/Velas Aromaticas SR.webp" alt="Velas Aromáticas" class="product-image" loading="lazy">
-            <span class="product-badge">Hecho a mano</span>
-          </div>
-          <div class="product-content">
-            <h3 class="product-title">Velas del Bosque</h3>
-            <p class="product-description">Velas de soya con aromas naturales de pino, eucalipto y lavanda.</p>
-            <div class="product-footer">
-              <span class="product-price">$220 MXN</span>
-              <button class="btn-product">Comprar</button>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <div class="products-cta">
-        <p>¿Quieres vender tus productos artesanales en nuestra tienda?</p>
-        <a href="#contacto" class="btn btn-secondary">Contáctanos</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Reservation Form Section -->
-  <section id="reservar" class="form-section">
-    <div class="container-small">
-      <h2 class="serif section-title">Reserva tu experiencia</h2>
-      <p class="section-subtitle">Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.</p>
-
-      <form class="reservation-form" id="reservationForm">
-        <div class="form-group">
-          <label for="name">Nombre completo</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Teléfono</label>
-            <input type="tel" id="phone" name="phone" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="package">Paquete de interés</label>
-          <select id="package" name="package" required>
-            <option value="">Selecciona un paquete</option>
-            <optgroup label="Ecosystems">
-              <option value="eco-basico">Eco Básico - $1,350</option>
-              <option value="eco-plus">Eco Plus - $1,850</option>
-              <option value="eco-impacto">Eco Impacto - $2,300</option>
-            </optgroup>
-            <optgroup label="EcoPass">
-              <option value="pase-dia">Pase Bosque Día - $220</option>
-              <option value="pase-experiencias">Pase Experiencias - $450</option>
-              <option value="pase-temporada">Pase Temporada - $1,200</option>
-            </optgroup>
-            <optgroup label="Running Club">
-              <option value="runner-base">Runner Base - $900</option>
-              <option value="runner-kit">Runner Kit - $1,250</option>
-              <option value="runner-shuttle">Runner Shuttle - $1,650</option>
-            </optgroup>
-            <optgroup label="Ruta Verde">
-              <option value="ruta-local">Ruta Local - $790</option>
-              <option value="ruta-taller">Ruta Taller - $1,250</option>
-              <option value="ruta-completa">Ruta Completa + Shuttle - $1,600</option>
-            </optgroup>
-            <optgroup label="Sendero & Sabor">
-              <option value="sendero">Sendero & Sabor - $850</option>
-              <option value="sendero-plus">Sendero Plus - $1,300</option>
-              <option value="privado">Privado 4-6 personas - $2,200 p/p</option>
-            </optgroup>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="date">Fecha preferida</label>
-            <input type="date" id="date" name="date" required>
-          </div>
-
-          <div class="form-group">
-            <label for="participants">Número de participantes</label>
-            <input type="number" id="participants" name="participants" min="1" max="20" value="1" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="message">Mensaje o solicitudes especiales (opcional)</label>
-          <textarea id="message" name="message" rows="4"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Enviar reserva</button>
-      </form>
-
-      <div class="form-note">
-        <p>También puedes contactarnos directamente:</p>
-        <p>📧 reservas@santarosa-eco.mx | 📱 +52 55 1234 5678</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq-section">
-    <div class="container-small">
-      <h2 class="serif section-title">Preguntas frecuentes</h2>
-
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary class="faq-question">¿Qué nivel físico necesito para las actividades?</summary>
-          <div class="faq-answer">
-            <p>Ofrecemos actividades para todos los niveles. Los senderos están clasificados como:</p>
-            <ul>
-              <li><strong>Básico:</strong> Caminatas de 2-3 horas en terreno plano o con pendientes suaves.</li>
-              <li><strong>Intermedio:</strong> Hikes de 3-4 horas con desniveles moderados.</li>
-              <li><strong>Avanzado:</strong> Rutas de 4+ horas con terreno técnico y mayor desnivel.</li>
-            </ul>
-            <p>Cada paquete especifica el nivel requerido. Si tienes dudas, contáctanos.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-question">¿Qué incluye el servicio de shuttle desde Santa Fe?</summary>
-          <div class="faq-answer">
-            <p>El shuttle incluye transporte redondo en vehículos cómodos y seguros. Salimos desde un punto céntrico en Santa Fe (se envía ubicación exacta al confirmar). El trayecto dura aproximadamente 30-40 minutos. Incluye seguro de viajero y botella de agua.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-question">¿Qué pasa si llueve el día de mi reserva?</summary>
-          <div class="faq-answer">
-            <p>La seguridad es nuestra prioridad. En caso de lluvia ligera, las actividades continúan (¡es parte de la experiencia!). Si hay tormenta eléctrica o condiciones peligrosas, te ofrecemos:</p>
-            <ul>
-              <li>Reprogramar sin costo adicional</li>
-              <li>Crédito del 100% para usar en 6 meses</li>
-              <li>Reembolso del 90% si no puedes reprogramar</li>
-            </ul>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-question">¿Cuál es la política de cancelación?</summary>
-          <div class="faq-answer">
-            <p>Entendemos que los planes pueden cambiar:</p>
-            <ul>
-              <li>Hasta 72 horas antes: Reembolso del 100%</li>
-              <li>Entre 72-24 horas antes: Reembolso del 50%</li>
-              <li>Menos de 24 horas: Sin reembolso, pero puedes transferir tu reserva</li>
-            </ul>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-question">¿Qué debo llevar a las actividades?</summary>
-          <div class="faq-answer">
-            <p>Recomendamos llevar:</p>
-            <ul>
-              <li>Calzado cómodo para caminar (idealmente botas de hiking)</li>
-              <li>Ropa en capas según el clima</li>
-              <li>Gorra o sombrero y protector solar</li>
-              <li>Mochila pequeña para tus pertenencias</li>
-              <li>Cámara o celular para fotos</li>
-            </ul>
-            <p>Nosotros proporcionamos agua, snacks (según el paquete) y botiquín de primeros auxilios.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-question">¿Cómo funciona la adopción de árboles?</summary>
-          <div class="faq-answer">
-            <p>Con cada paquete que incluye adopción de árboles:</p>
-            <ul>
-              <li>Recibes un certificado digital con las coordenadas GPS de tu árbol</li>
-              <li>Puedes darle nombre a tu árbol</li>
-              <li>Te enviamos actualizaciones semestrales con fotos del crecimiento</li>
-              <li>Puedes visitarlo cuando quieras con tu pase de acceso</li>
-            </ul>
-            <p>Los árboles son especies nativas y se plantan en zonas de reforestación prioritarias.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-question">¿Organizan eventos privados o corporativos?</summary>
-          <div class="faq-answer">
-            <p>¡Sí! Ofrecemos experiencias personalizadas para:</p>
-            <ul>
-              <li>Team building empresarial</li>
-              <li>Celebraciones especiales</li>
-              <li>Retiros de bienestar</li>
-              <li>Grupos escolares</li>
-            </ul>
-            <p>Contáctanos para diseñar una experiencia a medida con actividades, catering y logística adaptada a tus necesidades.</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- Map Section -->
-  <section class="map-section">
+  <!-- How to Get Here -->
+  <section id="como-llegar" class="directions-section">
     <div class="container">
-      <div class="map-grid">
-        <div class="map-content">
-          <h2 class="serif section-title">¿Dónde estamos?</h2>
-          <p>A solo 30-40 minutos de Santa Fe, Santa Rosa es tu escape cercano a la naturaleza.</p>
+      <div class="directions-grid">
+        <div class="directions-text">
+          <p class="section-eyebrow" data-es="Cómo Llegar" data-en="How to Get Here">Cómo Llegar</p>
+          <h2 class="serif section-title" data-es="Más cerca de lo que crees" data-en="Closer than you think">Más cerca de lo que crees</h2>
+          <p class="directions-body" data-es="Santa Rosa Xochiac se encuentra en las montañas de la alcaldía Álvaro Obregón, al poniente de la Ciudad de México. A pesar de sentirse como otro mundo, está sorprendentemente cerca del corazón de la ciudad." data-en="Santa Rosa Xochiac is nestled in the mountains of Álvaro Obregón, west of Mexico City. Despite feeling like another world, it's surprisingly close to the heart of the city.">Santa Rosa Xochiac se encuentra en las montañas de la alcaldía Álvaro Obregón, al poniente de la Ciudad de México. A pesar de sentirse como otro mundo, está sorprendentemente cerca del corazón de la ciudad.</p>
 
-          <div class="map-info">
-            <h3>Punto de reunión para shuttles:</h3>
-            <p><strong>Plaza Comercial Santa Fe</strong><br>
-            Vasco de Quiroga 3800, Santa Fe<br>
-            (Estacionamiento nivel B2, zona naranja)</p>
-
-            <h3>Horarios de salida:</h3>
-            <ul>
-              <li>Sábados: 7:00 AM y 9:00 AM</li>
-              <li>Domingos: 7:00 AM, 9:00 AM y 11:00 AM</li>
-              <li>Entre semana: Previa reserva de grupos</li>
-            </ul>
+          <div class="direction-cards">
+            <div class="direction-card">
+              <span class="direction-icon">🏙️</span>
+              <div>
+                <h4 data-es="Desde Santa Fe" data-en="From Santa Fe">Desde Santa Fe</h4>
+                <p data-es="~30 minutos en auto por carretera" data-en="~30 minutes by car">~30 minutos en auto por carretera</p>
+              </div>
+            </div>
+            <div class="direction-card">
+              <span class="direction-icon">🏛️</span>
+              <div>
+                <h4 data-es="Desde el Centro Histórico" data-en="From Downtown (Centro Histórico)">Desde el Centro Histórico</h4>
+                <p data-es="~50 minutos en auto" data-en="~50 minutes by car">~50 minutos en auto</p>
+              </div>
+            </div>
+            <div class="direction-card">
+              <span class="direction-icon">⚽</span>
+              <div>
+                <h4 data-es="Desde el Estadio Azteca" data-en="From Estadio Azteca">Desde el Estadio Azteca</h4>
+                <p data-es="~40 minutos en auto" data-en="~40 minutes by car">~40 minutos en auto</p>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="map-embed">
+        <div class="directions-visual">
+          <img src="assets/images/World Cup context.webp" alt="Ciudad de México y el bosque de Santa Rosa" class="directions-image" loading="lazy" />
+        </div>
+        <div class="directions-map">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.1571756008357!2d-99.2920937!3d19.3071578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdf8b9f0e0ef41%3A0x92d786e8c6739570!2sVivero%20Del%20Bosque%20De%20Santa%20Rosa%20Xochiac!5e1!3m2!1ses!2smx!4v1759213267327!5m2!1ses!2smx"
             width="100%"
@@ -923,63 +354,89 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container-small">
+      <p class="section-eyebrow text-center" data-es="Preguntas Frecuentes" data-en="FAQ">Preguntas Frecuentes</p>
+      <h2 class="serif section-title text-center" data-es="Lo que necesitas saber" data-en="What you need to know">Lo que necesitas saber</h2>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question" data-es="¿Dónde se encuentra Santa Rosa Xochiac?" data-en="Where is Santa Rosa Xochiac?">¿Dónde se encuentra Santa Rosa Xochiac?</summary>
+          <div class="faq-answer">
+            <p data-es="Santa Rosa Xochiac es un pueblo originario ubicado en la Sierra de las Cruces, Alcaldía Álvaro Obregón, al poniente de la Ciudad de México. El bosque comunal se extiende entre los 2,700 y 3,100 metros sobre el nivel del mar, con más de 2,400 hectáreas de bosque de oyamel, pino y encino. Se encuentra a solo 30 minutos de Santa Fe y 50 minutos del Centro Histórico." data-en="Santa Rosa Xochiac is a pueblo originario (indigenous community) located in the Sierra de las Cruces mountains, Álvaro Obregón borough, west of Mexico City. The communal forest stretches between 2,700 and 3,100 meters (8,900-10,200 ft) above sea level, with over 2,400 hectares of sacred fir, pine, and oak forest. It's just 30 minutes from Santa Fe and 50 minutes from the Historic Center.">Santa Rosa Xochiac es un pueblo originario ubicado en la Sierra de las Cruces, Alcaldía Álvaro Obregón, al poniente de la Ciudad de México. El bosque comunal se extiende entre los 2,700 y 3,100 metros sobre el nivel del mar, con más de 2,400 hectáreas de bosque de oyamel, pino y encino. Se encuentra a solo 30 minutos de Santa Fe y 50 minutos del Centro Histórico.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question" data-es="¿Qué nivel físico necesito?" data-en="What fitness level do I need?">¿Qué nivel físico necesito?</summary>
+          <div class="faq-answer">
+            <p data-es="Hay actividades para todos los niveles. Los senderos van desde caminatas suaves de 2 horas hasta rutas avanzadas de 4+ horas con terreno técnico. Los guías locales adaptan el ritmo al grupo." data-en="There are activities for all levels. Trails range from gentle 2-hour walks to advanced 4+ hour routes with technical terrain. Local guides adapt the pace to the group.">Hay actividades para todos los niveles. Los senderos van desde caminatas suaves de 2 horas hasta rutas avanzadas de 4+ horas con terreno técnico. Los guías locales adaptan el ritmo al grupo.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question" data-es="¿Qué debo llevar?" data-en="What should I bring?">¿Qué debo llevar?</summary>
+          <div class="faq-answer">
+            <p data-es="Calzado cómodo para caminar (idealmente botas de hiking), ropa en capas, gorra, protector solar, mochila pequeña y cámara. Nosotros proporcionamos agua y snacks según la actividad." data-en="Comfortable walking shoes (ideally hiking boots), layered clothing, a hat, sunscreen, a small backpack, and a camera. We provide water and snacks depending on the activity.">Calzado cómodo para caminar (idealmente botas de hiking), ropa en capas, gorra, protector solar, mochila pequeña y cámara. Nosotros proporcionamos agua y snacks según la actividad.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question" data-es="¿Cómo funciona la adopción de árboles?" data-en="How does tree adoption work?">¿Cómo funciona la adopción de árboles?</summary>
+          <div class="faq-answer">
+            <p data-es="Recibes un certificado digital con las coordenadas GPS de tu árbol, puedes darle nombre y te enviamos actualizaciones semestrales con fotos de su crecimiento. Los árboles son especies nativas plantadas en zonas de reforestación prioritarias." data-en="You receive a digital certificate with the GPS coordinates of your tree, you can name it, and we send you biannual updates with photos of its growth. The trees are native species planted in priority reforestation areas.">Recibes un certificado digital con las coordenadas GPS de tu árbol, puedes darle nombre y te enviamos actualizaciones semestrales con fotos de su crecimiento. Los árboles son especies nativas plantadas en zonas de reforestación prioritarias.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question" data-es="¿Es seguro? ¿Hay guías?" data-en="Is it safe? Are there guides?">¿Es seguro? ¿Hay guías?</summary>
+          <div class="faq-answer">
+            <p data-es="Todas las actividades son guiadas por miembros de la comunidad que conocen el bosque a profundidad. Contamos con botiquín de primeros auxilios y los senderos están señalizados. La comunidad cuida de sus visitantes como cuida del bosque." data-en="All activities are guided by community members who know the forest deeply. We carry first-aid kits and the trails are marked. The community takes care of its visitors the same way it takes care of the forest.">Todas las actividades son guiadas por miembros de la comunidad que conocen el bosque a profundidad. Contamos con botiquín de primeros auxilios y los senderos están señalizados. La comunidad cuida de sus visitantes como cuida del bosque.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question" data-es="¿Hay actividades para grupos o empresas?" data-en="Are there activities for groups or companies?">¿Hay actividades para grupos o empresas?</summary>
+          <div class="faq-answer">
+            <p data-es="Sí. Ofrecemos experiencias personalizadas para team building empresarial, celebraciones, retiros de bienestar y grupos escolares." data-en="Yes. We offer customized experiences for corporate team building, celebrations, wellness retreats, and school groups.">Sí. Ofrecemos experiencias personalizadas para team building empresarial, celebraciones, retiros de bienestar y grupos escolares.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-column">
-          <h3 class="serif footer-title">Santa Rosa</h3>
-          <p>Experiencias de ecoturismo con propósito. Cada visita contribuye a la reforestación y al desarrollo de la comunidad local.</p>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h3 class="serif footer-title">Santa Rosa Xochiac</h3>
+          <p data-es="Bosque comunitario &bull; Ecoturismo con propósito" data-en="Community forest &bull; Ecotourism with purpose">Bosque comunitario &bull; Ecoturismo con propósito</p>
           <div class="social-links">
             <a href="#" aria-label="Facebook">📘</a>
             <a href="#" aria-label="Instagram">📷</a>
-            <a href="#" aria-label="WhatsApp">💬</a>
           </div>
         </div>
-
-        <div class="footer-column">
-          <h4>Enlaces rápidos</h4>
-          <ul class="footer-links">
-            <li><a href="#paquetes">Paquetes</a></li>
-            <li><a href="#calendario">Calendario</a></li>
-            <li><a href="#reservar">Reservar</a></li>
-            <li><a href="#faq">FAQ</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column">
-          <h4>Contacto</h4>
-          <ul class="footer-contact">
-            <li>📧 info@santarosa-eco.mx</li>
-            <li>📱 +52 55 1234 5678</li>
-            <li>🕐 Lun-Vie: 9:00-18:00</li>
-            <li>🕐 Sáb-Dom: 7:00-15:00</li>
-          </ul>
-        </div>
-
-        <div class="footer-column">
-          <h4>Legal</h4>
-          <ul class="footer-links">
-            <li><a href="#">Términos y condiciones</a></li>
-            <li><a href="#">Política de privacidad</a></li>
-            <li><a href="#">Deslinde de responsabilidad</a></li>
-          </ul>
+        <div class="footer-nav">
+          <a href="#comunidad" data-es="La Comunidad" data-en="Community">La Comunidad</a>
+          <a href="#experiencias" data-es="Experiencias" data-en="Experiences">Experiencias</a>
+          <a href="#rutas-mapa" data-es="Rutas" data-en="Routes">Rutas</a>
+          <a href="#como-llegar" data-es="Cómo Llegar" data-en="Directions">Cómo Llegar</a>
         </div>
       </div>
-
       <div class="footer-bottom">
-        <p>&copy; 2024 Santa Rosa Ecoturismo. Todos los derechos reservados.</p>
-        <p class="footer-disclaimer">Precios orientativos IVA incluido; pueden variar por temporada y disponibilidad.</p>
+        <p>&copy; 2025 Santa Rosa Xochiac</p>
       </div>
     </div>
   </footer>
 
-  <!-- Sticky CTA for Mobile -->
-  <div class="sticky-cta">
-    <a href="#reservar" class="btn btn-primary btn-block">Reservar ahora</a>
-  </div>
-
-  <!-- JavaScript -->
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Route Data -->
+  <script src="routes-data.js"></script>
+  <script src="senderos-data.js"></script>
+  <!-- Main JS -->
   <script src="scripts.js"></script>
 </body>
 </html>

@@ -1,167 +1,169 @@
-// Santa Rosa Ecoturismo - Interactive JavaScript
+// Santa Rosa Xochiac — Interactive JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  // Tab Navigation
-  const tabs = document.querySelectorAll('.tab');
-  const panels = document.querySelectorAll('.tab-panel');
+  // ===== LANGUAGE TOGGLE =====
+  const langToggle = document.getElementById('langToggle');
+  let currentLang = localStorage.getItem('srx-lang') || 'es';
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetTab = tab.dataset.tab;
+  // Decode only safe HTML entities (no arbitrary HTML)
+  function decodeEntities(str) {
+    const el = document.createElement('span');
+    el.textContent = str;
+    // Only decode known safe entities used in our translations
+    return str
+      .replace(/&laquo;/g, '\u00AB')
+      .replace(/&raquo;/g, '\u00BB')
+      .replace(/&bull;/g, '\u2022')
+      .replace(/&rarr;/g, '\u2192')
+      .replace(/&lt;br&gt;/g, '\n');
+  }
 
-      // Remove active class from all tabs and panels
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('srx-lang', lang);
 
-      // Add active class to clicked tab and corresponding panel
-      tab.classList.add('active');
-      const targetPanel = document.getElementById(`panel-${targetTab}`);
-      if (targetPanel) {
-        targetPanel.classList.add('active');
+    // Update toggle button text
+    langToggle.querySelector('.lang-flag').textContent = lang === 'es' ? 'EN' : 'ES';
+
+    // Update all translatable elements using textContent (safe, no XSS risk)
+    document.querySelectorAll('[data-es][data-en]').forEach(function(el) {
+      var text = el.getAttribute('data-' + lang);
+      if (text) {
+        var decoded = decodeEntities(text);
+        // Handle <br> as actual line breaks only for elements that need them
+        if (decoded.indexOf('\n') !== -1) {
+          // Clear and rebuild with text nodes and <br> elements
+          while (el.firstChild) el.removeChild(el.firstChild);
+          var parts = decoded.split('\n');
+          for (var i = 0; i < parts.length; i++) {
+            el.appendChild(document.createTextNode(parts[i]));
+            if (i < parts.length - 1) {
+              el.appendChild(document.createElement('br'));
+            }
+          }
+        } else {
+          el.textContent = decoded;
+        }
+      }
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+  }
+
+  if (langToggle) {
+    langToggle.addEventListener('click', function() {
+      setLanguage(currentLang === 'es' ? 'en' : 'es');
+    });
+  }
+
+  // Apply saved language on load
+  setLanguage(currentLang);
+
+  // ===== MAP CONTROLS TOGGLE =====
+  var controlsToggle = document.getElementById('controlsToggleBtn');
+  var controlsPanel = document.getElementById('routesControls');
+  if (controlsToggle && controlsPanel) {
+    controlsToggle.addEventListener('click', function() {
+      controlsPanel.classList.toggle('collapsed');
+    });
+  }
+
+  // ===== SCROLL PROGRESS BAR =====
+  var progressBar = document.createElement('div');
+  progressBar.style.cssText =
+    'position:fixed;top:0;left:0;width:0%;height:3px;' +
+    'background:linear-gradient(90deg,#A67B5B 0%,#DDE5D7 100%);' +
+    'z-index:1000;transition:width 0.1s ease;';
+  document.body.appendChild(progressBar);
+
+  // ===== SCROLL EVENTS =====
+  window.addEventListener('scroll', function() {
+    var windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (window.scrollY / windowHeight) * 100 + '%';
+  }, { passive: true });
+
+  // Parallax for hero background
+  var heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset < window.innerHeight) {
+        heroBg.style.transform = 'scale(1.1) translateY(' + (window.pageYOffset * 0.3) + 'px)';
+      }
+    }, { passive: true });
+  }
+
+  // ===== SMOOTH SCROLL =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        var offset = 40;
+        var targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
       }
     });
   });
 
-  // Animated Counter for Impact Numbers
-  const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px 0px -100px 0px'
-  };
+  // ===== ANIMATED COUNTERS =====
+  function animateNumber(element) {
+    var target = parseInt(element.dataset.target);
+    var duration = 2000;
+    var step = target / (duration / 16);
+    var current = 0;
 
-  const animateNumber = (element) => {
-    const target = parseInt(element.dataset.target);
-    const duration = 2000;
-    const step = target / (duration / 16);
-    let current = 0;
-
-    const updateNumber = () => {
+    function updateNumber() {
       current += step;
       if (current < target) {
         element.textContent = Math.floor(current).toLocaleString();
         requestAnimationFrame(updateNumber);
       } else {
-        element.textContent = target.toLocaleString() + (element.textContent.includes('%') ? '%' : '+');
+        element.textContent = target.toLocaleString() + '+';
       }
-    };
-
+    }
     updateNumber();
-  };
+  }
 
-  const numberObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  var numberObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
         animateNumber(entry.target);
         entry.target.classList.add('animated');
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.5 });
 
-  document.querySelectorAll('.impact-number').forEach(number => {
-    numberObserver.observe(number);
+  document.querySelectorAll('.impact-number').forEach(function(n) {
+    numberObserver.observe(n);
   });
 
-  // Form Submission Handler
-  const reservationForm = document.getElementById('reservationForm');
-  if (reservationForm) {
-    reservationForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // Get form data
-      const formData = new FormData(reservationForm);
-      const data = Object.fromEntries(formData);
-
-      // Here you would normally send the data to a server
-      // For now, we'll just show a success message
-      alert(`¡Gracias por tu reserva, ${data.name}! Te contactaremos pronto al correo ${data.email} para confirmar tu experiencia "${data.package}".`);
-
-      // Reset form
-      reservationForm.reset();
-
-      // Scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  // Smooth Scroll for Anchor Links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        const offset = 80; // Account for any fixed headers
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-
-  // Lazy Loading Images - Now using real images
-  const imageObserverOptions = {
-    rootMargin: '50px 0px',
-    threshold: 0.01
-  };
-
-  const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  // ===== FADE-IN ON SCROLL =====
+  var fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        const img = entry.target;
-        // Add a fade-in animation when images load
-        img.style.animation = 'fadeIn 0.6s ease-out';
-        imageObserver.unobserve(img);
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        fadeObserver.unobserve(entry.target);
       }
     });
-  }, imageObserverOptions);
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-    imageObserver.observe(img);
+  document.querySelectorAll('.experience-card, .community-grid, .direction-card, .faq-item').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+    fadeObserver.observe(el);
   });
 
-  // Mobile Menu Toggle (if needed in future)
-  const menuToggle = document.querySelector('.menu-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
-    });
-  }
-
-  // Date Input - Set minimum date to today
-  const dateInput = document.getElementById('date');
-  if (dateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-  }
-
-  // Add hover effect to package cards
-  const packageCards = document.querySelectorAll('.package-card');
-  packageCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-8px)';
-    });
-
-    card.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0)';
-    });
-  });
-
-  // FAQ Smooth Toggle Animation
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
-
-    question.addEventListener('click', () => {
-      // Smooth height animation for answer
+  // ===== FAQ TOGGLE =====
+  document.querySelectorAll('.faq-item').forEach(function(item) {
+    var question = item.querySelector('.faq-question');
+    var answer = item.querySelector('.faq-answer');
+    question.addEventListener('click', function() {
       if (!item.hasAttribute('open')) {
         answer.style.maxHeight = answer.scrollHeight + 'px';
       } else {
@@ -170,456 +172,244 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Scroll Progress Indicator (optional enhancement)
-  const createScrollProgress = () => {
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--cacao) 0%, var(--bosque) 100%);
-      z-index: 1000;
-      transition: width 0.1s ease;
-    `;
-    document.body.appendChild(progressBar);
-
-    window.addEventListener('scroll', () => {
-      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = (window.scrollY / windowHeight) * 100;
-      progressBar.style.width = scrolled + '%';
-    });
-  };
-
-  createScrollProgress();
-
-  // Parallax Effect for Hero Image
-  const heroImage = document.querySelector('.hero-image');
-  if (heroImage) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.3;
-      if (scrolled < 800) {
-        heroImage.style.transform = `translateY(${rate}px)`;
-      }
-    });
-  }
-
-  // Smooth scroll animation for packages section
-  const packageSection = document.querySelector('.packages-section');
-  if (packageSection) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    observer.observe(packageSection);
-  }
-
-  // Calendar Card Hover Effects
-  const calendarCards = document.querySelectorAll('.calendar-card');
-  calendarCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      card.style.transform = 'translateY(-6px) scale(1.02)';
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'translateY(0) scale(1)';
-    });
-  });
-
-  // Auto-hide Sticky CTA on Scroll Up (Mobile)
-  let lastScroll = 0;
-  const stickyCTA = document.querySelector('.sticky-cta');
-
-  if (stickyCTA && window.innerWidth < 768) {
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-
-      if (currentScroll > lastScroll && currentScroll > 100) {
-        // Scrolling down
-        stickyCTA.style.transform = 'translateY(100%)';
-      } else {
-        // Scrolling up
-        stickyCTA.style.transform = 'translateY(0)';
-      }
-
-      lastScroll = currentScroll;
-    });
-  }
-
-  // Add Loading State to Buttons
-  document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function(e) {
-      if (this.href && this.href.includes('stripe.com')) {
-        this.classList.add('loading');
-        this.innerHTML = '<span>Procesando...</span>';
-      }
-    });
-  });
-
-  // Accessibility: Announce Tab Changes
-  const announceTabChange = (tabName) => {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('role', 'status');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.className = 'sr-only';
-    announcement.textContent = `Mostrando paquetes de ${tabName}`;
-    document.body.appendChild(announcement);
-
-    setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 1000);
-  };
-
-  // Enhanced Tab Keyboard Navigation
-  tabs.forEach((tab, index) => {
-    tab.setAttribute('role', 'tab');
-    tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
-
-    tab.addEventListener('keydown', (e) => {
-      let newIndex;
-
-      if (e.key === 'ArrowRight') {
-        newIndex = (index + 1) % tabs.length;
-      } else if (e.key === 'ArrowLeft') {
-        newIndex = (index - 1 + tabs.length) % tabs.length;
-      } else if (e.key === 'Home') {
-        newIndex = 0;
-      } else if (e.key === 'End') {
-        newIndex = tabs.length - 1;
-      }
-
-      if (newIndex !== undefined) {
-        e.preventDefault();
-        tabs[newIndex].click();
-        tabs[newIndex].focus();
-      }
-    });
-  });
-
-  // Initialize Gallery Lightbox (simple version)
-  const galleryImages = document.querySelectorAll('.gallery-image');
-  galleryImages.forEach(img => {
-    img.style.cursor = 'pointer';
+  // ===== GALLERY LIGHTBOX =====
+  document.querySelectorAll('.gallery-image').forEach(function(img) {
     img.addEventListener('click', function() {
-      const lightbox = document.createElement('div');
-      lightbox.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2000;
-        cursor: pointer;
-      `;
+      var self = this;
+      var lightbox = document.createElement('div');
+      lightbox.style.cssText =
+        'position:fixed;top:0;left:0;width:100%;height:100%;' +
+        'background:rgba(0,0,0,0.92);display:flex;align-items:center;' +
+        'justify-content:center;z-index:2000;cursor:pointer;' +
+        'animation:fadeIn 0.3s ease-out;';
 
-      const largeImg = document.createElement('img');
-      largeImg.src = this.src;
-      largeImg.style.cssText = `
-        max-width: 90%;
-        max-height: 90%;
-        border-radius: 16px;
-      `;
+      var largeImg = document.createElement('img');
+      largeImg.src = self.src;
+      largeImg.alt = self.alt;
+      largeImg.style.cssText = 'max-width:92%;max-height:92%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);';
 
       lightbox.appendChild(largeImg);
       document.body.appendChild(lightbox);
       document.body.style.overflow = 'hidden';
 
-      lightbox.addEventListener('click', () => {
-        document.body.removeChild(lightbox);
-        document.body.style.overflow = '';
-      });
-
-      // ESC key to close
-      const closeOnEsc = (e) => {
-        if (e.key === 'Escape') {
+      function closeLightbox() {
+        if (lightbox.parentNode) {
           document.body.removeChild(lightbox);
           document.body.style.overflow = '';
-          document.removeEventListener('keydown', closeOnEsc);
         }
-      };
-      document.addEventListener('keydown', closeOnEsc);
+      }
+
+      lightbox.addEventListener('click', closeLightbox);
+      document.addEventListener('keydown', function handler(e) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+          document.removeEventListener('keydown', handler);
+        }
+      });
     });
   });
 
-  // Performance: Debounce scroll events
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-
-  // Apply debounce to scroll-based functions
-  const debouncedScroll = debounce(() => {
-    // Add any scroll-based logic here
-  }, 100);
-
-  window.addEventListener('scroll', debouncedScroll, { passive: true });
-
-  // Calendar Modal Functionality
-  const calendarModal = document.getElementById('calendarModal');
-  const openCalendarBtn = document.getElementById('openCalendarModal');
-  const closeModalBtn = document.querySelector('.close-modal');
-  const calendarFilters = document.querySelectorAll('.calendar-filter');
-  const calendarEvents = document.querySelectorAll('.calendar-event');
-
-  // Open calendar modal
-  if (openCalendarBtn && calendarModal) {
-    openCalendarBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      calendarModal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-
-      // Animate entrance
-      setTimeout(() => {
-        calendarModal.classList.add('active');
-      }, 10);
-    });
-  }
-
-  // Close calendar modal
-  if (closeModalBtn && calendarModal) {
-    closeModalBtn.addEventListener('click', () => {
-      closeCalendarModal();
-    });
-  }
-
-  // Close modal when clicking outside
-  if (calendarModal) {
-    calendarModal.addEventListener('click', (e) => {
-      if (e.target === calendarModal) {
-        closeCalendarModal();
-      }
+  // ===== INTERACTIVE ROUTES MAP (Leaflet) =====
+  var mapContainer = document.getElementById('routesMap');
+  if (mapContainer && typeof L !== 'undefined' && typeof ROUTE_DATA !== 'undefined') {
+    var map = L.map('routesMap', {
+      center: [19.301, -99.297],
+      zoom: 14,
+      zoomControl: true,
+      scrollWheelZoom: true
     });
 
-    // ESC key to close modal
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && calendarModal.style.display === 'block') {
-        closeCalendarModal();
-      }
-    });
-  }
+    // Satellite + labels
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri',
+      maxZoom: 18
+    }).addTo(map);
 
-  function closeCalendarModal() {
-    if (calendarModal) {
-      calendarModal.classList.remove('active');
-      setTimeout(() => {
-        calendarModal.style.display = 'none';
-        document.body.style.overflow = '';
-      }, 300);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18,
+      opacity: 0.6
+    }).addTo(map);
+
+    var dashPatterns = { 'IDA': null, 'CIAF': '12 8', 'REGRESO': '4 8' };
+    var routeLayers = {};
+
+    Object.keys(ROUTE_DATA).forEach(function(key) {
+      var route = ROUTE_DATA[key];
+      var group = L.layerGroup();
+
+      route.segments.forEach(function(segment) {
+        var popupText = document.createElement('div');
+        var title = document.createElement('strong');
+        title.textContent = route.name + ' \u2014 ' + segment.label;
+        var desc = document.createElement('small');
+        desc.textContent = route.description;
+        popupText.appendChild(title);
+        popupText.appendChild(document.createElement('br'));
+        popupText.appendChild(desc);
+
+        var polyline = L.polyline(segment.coords, {
+          color: route.color,
+          weight: 4,
+          opacity: 0.9,
+          dashArray: dashPatterns[segment.label] || null,
+          lineCap: 'round',
+          lineJoin: 'round'
+        });
+
+        polyline.bindPopup(popupText);
+        group.addLayer(polyline);
+      });
+
+      group.addTo(map);
+      routeLayers[key] = group;
+    });
+
+    // ===== SENDEROS Y BRECHAS =====
+    var senderoLayers = {};
+    if (typeof SENDERO_DATA !== 'undefined') {
+      Object.keys(SENDERO_DATA).forEach(function(key) {
+        var sendero = SENDERO_DATA[key];
+        var popupEl = document.createElement('div');
+        var title = document.createElement('strong');
+        title.textContent = sendero.name_es;
+        var parajes = document.createElement('small');
+        parajes.textContent = sendero.parajes;
+        popupEl.appendChild(title);
+        popupEl.appendChild(document.createElement('br'));
+        popupEl.appendChild(parajes);
+
+        var polyline = L.polyline(sendero.coords, {
+          color: sendero.color,
+          weight: 3,
+          opacity: 0.85,
+          dashArray: '8 6',
+          lineCap: 'round',
+          lineJoin: 'round'
+        });
+        polyline.bindPopup(popupEl);
+
+        var group = L.layerGroup([polyline]);
+        group.addTo(map);
+        senderoLayers[key] = group;
+      });
     }
-  }
 
-  // Calendar Filter Functionality
-  calendarFilters.forEach(filter => {
-    filter.addEventListener('click', () => {
-      // Update active filter
-      calendarFilters.forEach(f => f.classList.remove('active'));
-      filter.classList.add('active');
+    // ===== CASETAS DE VIGILANCIA =====
+    var casetaLayer = L.layerGroup();
+    if (typeof CASETA_DATA !== 'undefined') {
+      var casetaIcon = L.divIcon({
+        className: 'caseta-marker',
+        html: '<div style="background:#2d5016;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.4);">\u26D1</div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 14]
+      });
 
-      const filterValue = filter.dataset.filter;
+      CASETA_DATA.forEach(function(caseta) {
+        var marker = L.marker(caseta.coords, { icon: casetaIcon });
+        var popupEl = document.createElement('div');
+        var title = document.createElement('strong');
+        title.textContent = caseta.name_es;
+        var desc = document.createElement('small');
+        desc.textContent = 'Caseta de vigilancia comunitaria';
+        popupEl.appendChild(title);
+        popupEl.appendChild(document.createElement('br'));
+        popupEl.appendChild(desc);
+        marker.bindPopup(popupEl);
+        casetaLayer.addLayer(marker);
+      });
+      casetaLayer.addTo(map);
+    }
 
-      // Show/hide events based on filter
-      calendarEvents.forEach(event => {
-        if (filterValue === 'all') {
-          event.classList.remove('hidden');
-          event.style.display = 'flex';
-        } else {
-          if (event.dataset.category === filterValue) {
-            event.classList.remove('hidden');
-            event.style.display = 'flex';
-          } else {
-            event.classList.add('hidden');
-            event.style.display = 'none';
+    // Fit bounds (all layers)
+    var allBounds = [];
+    Object.values(ROUTE_DATA).forEach(function(route) {
+      route.segments.forEach(function(seg) {
+        seg.coords.forEach(function(c) { allBounds.push(c); });
+      });
+    });
+    if (typeof SENDERO_DATA !== 'undefined') {
+      Object.values(SENDERO_DATA).forEach(function(sendero) {
+        sendero.coords.forEach(function(c) { allBounds.push(c); });
+      });
+    }
+    if (typeof CASETA_DATA !== 'undefined') {
+      CASETA_DATA.forEach(function(caseta) { allBounds.push(caseta.coords); });
+    }
+    if (allBounds.length > 0) {
+      map.fitBounds(L.latLngBounds(allBounds).pad(0.1));
+    }
+
+    // Toggle controls — ARCAC routes
+    Object.keys(ROUTE_DATA).forEach(function(key) {
+      var checkbox = document.getElementById('toggle-' + key);
+      if (checkbox) {
+        checkbox.addEventListener('change', function() {
+          if (this.checked) map.addLayer(routeLayers[key]);
+          else map.removeLayer(routeLayers[key]);
+        });
+      }
+    });
+
+    // Toggle controls — Senderos
+    Object.keys(senderoLayers).forEach(function(key) {
+      var checkbox = document.getElementById('toggle-' + key);
+      if (checkbox) {
+        checkbox.addEventListener('change', function() {
+          if (this.checked) map.addLayer(senderoLayers[key]);
+          else map.removeLayer(senderoLayers[key]);
+        });
+      }
+    });
+
+    // Toggle controls — Casetas
+    var casetaCheckbox = document.getElementById('toggle-casetas');
+    if (casetaCheckbox) {
+      casetaCheckbox.addEventListener('change', function() {
+        if (this.checked) map.addLayer(casetaLayer);
+        else map.removeLayer(casetaLayer);
+      });
+    }
+
+    // ===== GROUP TOGGLE BUTTONS =====
+    function setupGroupToggle(btnId, checkboxIds, layerMap) {
+      var btn = document.getElementById(btnId);
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var allChecked = checkboxIds.every(function(id) {
+          var cb = document.getElementById(id);
+          return cb && cb.checked;
+        });
+        checkboxIds.forEach(function(id) {
+          var cb = document.getElementById(id);
+          if (!cb) return;
+          cb.checked = !allChecked;
+          var key = id.replace('toggle-', '');
+          var layer = layerMap[key];
+          if (layer) {
+            if (cb.checked) map.addLayer(layer);
+            else map.removeLayer(layer);
           }
+        });
+        var lang = document.documentElement.lang || 'es';
+        if (allChecked) {
+          btn.textContent = lang === 'es' ? 'Todo' : 'All';
+          btn.classList.add('off');
+        } else {
+          btn.textContent = lang === 'es' ? 'Todo' : 'All';
+          btn.classList.remove('off');
         }
       });
-
-      // Animate visible events
-      const visibleEvents = document.querySelectorAll('.calendar-event:not(.hidden)');
-      visibleEvents.forEach((event, index) => {
-        event.style.animation = 'none';
-        setTimeout(() => {
-          event.style.animation = `fadeInUp 0.5s ease-out ${index * 0.05}s`;
-        }, 10);
-      });
-    });
-  });
-
-  // Add click event to calendar events for reservation
-  calendarEvents.forEach(event => {
-    event.addEventListener('click', () => {
-      const eventTitle = event.querySelector('h4').textContent;
-      const eventDate = event.querySelector('.event-day').textContent;
-      const eventMonth = event.closest('.calendar-month').querySelector('.calendar-month-title').textContent;
-
-      // Close modal and scroll to reservation form
-      closeCalendarModal();
-
-      setTimeout(() => {
-        // Scroll to reservation form
-        const reservationForm = document.getElementById('reservar');
-        if (reservationForm) {
-          reservationForm.scrollIntoView({ behavior: 'smooth' });
-
-          // Pre-fill form message with event details
-          setTimeout(() => {
-            const messageField = document.getElementById('message');
-            if (messageField) {
-              messageField.value = `Me interesa la actividad: ${eventTitle} - ${eventDate} de ${eventMonth}`;
-            }
-          }, 500);
-        }
-      }, 400);
-    });
-  });
-
-  // Add month navigation (optional enhancement)
-  const addMonthNavigation = () => {
-    const months = document.querySelectorAll('.calendar-month');
-    if (months.length > 0) {
-      const navContainer = document.createElement('div');
-      navContainer.className = 'month-navigation';
-      navContainer.style.cssText = `
-        position: sticky;
-        top: 0;
-        background: var(--blanco);
-        padding: 1rem;
-        border-bottom: 2px solid var(--salvia);
-        margin-bottom: 1rem;
-        z-index: 10;
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-      `;
-
-      months.forEach(month => {
-        const monthTitle = month.querySelector('.calendar-month-title').textContent;
-        const navBtn = document.createElement('button');
-        navBtn.textContent = monthTitle.split(' ')[0]; // Get just month name
-        navBtn.className = 'month-nav-btn';
-        navBtn.style.cssText = `
-          padding: 0.5rem 1rem;
-          background: var(--arena);
-          border: 1px solid var(--salvia);
-          border-radius: var(--radius-md);
-          cursor: pointer;
-          transition: var(--transition);
-        `;
-
-        navBtn.addEventListener('click', () => {
-          month.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        navBtn.addEventListener('mouseenter', () => {
-          navBtn.style.background = 'var(--salvia)';
-        });
-
-        navBtn.addEventListener('mouseleave', () => {
-          navBtn.style.background = 'var(--arena)';
-        });
-
-        navContainer.appendChild(navBtn);
-      });
-
-      const modalBody = document.querySelector('.calendar-modal-body');
-      if (modalBody) {
-        modalBody.insertBefore(navContainer, modalBody.firstChild);
-      }
     }
-  };
 
-  // Initialize month navigation when modal opens
-  if (openCalendarBtn) {
-    openCalendarBtn.addEventListener('click', () => {
-      setTimeout(() => {
-        if (!document.querySelector('.month-navigation')) {
-          addMonthNavigation();
-        }
-      }, 100);
-    });
+    setupGroupToggle('group-arcac',
+      ['toggle-ruta1', 'toggle-ruta2', 'toggle-ruta3'],
+      { ruta1: routeLayers.ruta1, ruta2: routeLayers.ruta2, ruta3: routeLayers.ruta3 }
+    );
+    setupGroupToggle('group-senderos',
+      ['toggle-r1', 'toggle-r2', 'toggle-r3', 'toggle-r4'],
+      { r1: senderoLayers.r1, r2: senderoLayers.r2, r3: senderoLayers.r3, r4: senderoLayers.r4 }
+    );
   }
 
-  // Product Cards Interactions
-  const productCards = document.querySelectorAll('.product-card');
-  const productButtons = document.querySelectorAll('.btn-product');
-
-  // Add hover effects to product cards
-  productCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      const image = this.querySelector('.product-image');
-      if (image) {
-        image.style.transform = 'scale(1.1)';
-      }
-    });
-
-    card.addEventListener('mouseleave', function() {
-      const image = this.querySelector('.product-image');
-      if (image) {
-        image.style.transform = 'scale(1)';
-      }
-    });
-  });
-
-  // Handle product purchase clicks
-  productButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      // Get product details
-      const card = this.closest('.product-card');
-      const productName = card.querySelector('.product-title').textContent;
-      const productPrice = card.querySelector('.product-price').textContent;
-
-      // Show purchase confirmation (temporary alert, can be replaced with modal)
-      const message = `¡Gracias por tu interés en ${productName}!\n\nPrecio: ${productPrice}\n\nSerás redirigido a WhatsApp para completar tu compra.`;
-
-      if (confirm(message)) {
-        // WhatsApp message with product details
-        const whatsappNumber = '525578789795'; // Replace with actual number
-        const whatsappMessage = `Hola! Me interesa comprar: ${productName} (${productPrice})`;
-        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-
-        window.open(whatsappURL, '_blank');
-      }
-
-      // Add animation to button
-      this.textContent = '¡Añadido!';
-      this.style.backgroundColor = 'var(--cacao)';
-
-      setTimeout(() => {
-        this.textContent = 'Comprar';
-        this.style.backgroundColor = '';
-      }, 2000);
-    });
-  });
-
-  // Smooth scroll to products section if there's a products link
-  const productsLinks = document.querySelectorAll('a[href="#productos"]');
-  productsLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const productsSection = document.getElementById('productos');
-      if (productsSection) {
-        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  console.log('🌲 Santa Rosa Ecoturismo - Sitio cargado exitosamente');
+  console.log('\uD83C\uDF32 Santa Rosa Xochiac \u2014 Loaded');
 });
