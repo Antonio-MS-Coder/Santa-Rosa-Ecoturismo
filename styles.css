@@ -267,8 +267,22 @@ img { max-width: 100%; height: auto; }
   transform: scale(1.03);
 }
 
-.community-text .section-title {
+.community-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.community-title-row .section-title {
   font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 0;
+}
+
+.community-logo {
+  height: 55px;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .community-body {
@@ -946,6 +960,15 @@ img { max-width: 100%; height: auto; }
   flex-wrap: wrap;
   gap: 2rem;
   margin-bottom: 2rem;
+}
+
+.footer-logo {
+  height: 80px;
+  width: auto;
+  margin-bottom: 0.75rem;
+  background: rgba(255,255,255,0.95);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
 }
 
 .footer-title {
